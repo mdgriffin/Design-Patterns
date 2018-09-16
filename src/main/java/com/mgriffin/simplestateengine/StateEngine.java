@@ -10,4 +10,8 @@ public class StateEngine {
         this.states = states;
         this.events = events;
     }
+
+    public void addTransition (Enum startState, Enum endState, Enum event) {
+
+    }
 }

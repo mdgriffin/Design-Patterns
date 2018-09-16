@@ -14,6 +14,12 @@ public class StateEngineTest {
         StateEngine se = new StateEngine(states, events);
     }
 
+    @Test
+    public void whenAddingATransition_noExceptionThrown () {
+        StateEngine se = new StateEngine(states, events);
+        se.addTransition(States.alive, States.dead, Events.shoot);
+    }
+
     private enum States {
         alive,
         dead
