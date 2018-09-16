@@ -1,7 +1,12 @@
 @startuml
 Class StateEngine {
-    -EnumSet States;
-    -EnumSet Events;
+    -EnumSet states;
+    -EnumSet events;
+    -Enum currentState
+    -Map<Enum, Map<Enum, Enum>> transitions
+
+    +StateEngine (EnumSet states, EnumSet events, Enum startState)
+
     +void addTransition(Enum startState, Enum endState, Enum event);
 }
 @enduml
