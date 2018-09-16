@@ -1,12 +1,17 @@
 package com.mgriffin.simplestateengine;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 public class StateEngine {
 
-    private Enum states;
+    private EnumSet states;
 
-    private Enum events;
+    private EnumSet events;
 
-    public StateEngine (Enum states, Enum events) {
+    private Set<Enum> transitions;
+
+    public StateEngine (EnumSet states, EnumSet events) {
         this.states = states;
         this.events = events;
     }

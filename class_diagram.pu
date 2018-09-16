@@ -1,7 +1,7 @@
 @startuml
 Class StateEngine {
-    -Enum States;
-    -Enum Events;
-    +void addTransition();
+    -EnumSet States;
+    -EnumSet Events;
+    +void addTransition(Enum startState, Enum endState, Enum event);
 }
 @enduml

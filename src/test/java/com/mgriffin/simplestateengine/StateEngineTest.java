@@ -2,6 +2,8 @@ package com.mgriffin.simplestateengine;
 
 import org.junit.Test;
 
+import java.util.EnumSet;
+
 import static junit.framework.TestCase.fail;
 
 public class StateEngineTest {
@@ -11,22 +13,22 @@ public class StateEngineTest {
 
     @Test
     public void stateEngineShouldInstantiate () {
-        StateEngine se = new StateEngine(states, events);
+        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class));
     }
 
     @Test
     public void whenAddingATransition_noExceptionThrown () {
-        StateEngine se = new StateEngine(states, events);
-        se.addTransition(States.alive, States.dead, Events.shoot);
+        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class));
+        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
     }
 
     private enum States {
-        alive,
-        dead
+        ALIVE,
+        DEAD
     }
 
     private enum Events {
-        shoot
+        SHOOT
     }
 
 }
