@@ -10,5 +10,7 @@ Class StateEngine {
     +void addTransition(Enum startState, Enum endState, Enum event)
 
     +Enum getCurrentState()
+
+    +void performAction()
 }
 @enduml

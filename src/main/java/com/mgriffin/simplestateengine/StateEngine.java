@@ -39,4 +39,12 @@ public class StateEngine {
         return currentState;
     }
 
+    public void performAction (Enum action) {
+        Enum nextState = transitions.get(currentState).get(action);
+
+        if (nextState != null) {
+            currentState = nextState;
+        }
+    }
+
 }

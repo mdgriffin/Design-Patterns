@@ -6,7 +6,6 @@ import org.junit.rules.ExpectedException;
 import java.util.EnumSet;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
 
 public class StateEngineTest {
 
@@ -31,6 +30,19 @@ public class StateEngineTest {
     public void whenCreatingStateEngine_currentStateIsStartState () {
         StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
         assertEquals(States.ALIVE, se.getCurrentState());
+    }
+
+    @Test
+    public void whenPerformingAction_currentStateChanged () {
+        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
+
+        assertEquals(States.ALIVE, se.getCurrentState());
+
+        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
+
+        se.performAction(Events.SHOOT);
+
+        assertEquals(States.DEAD, se.getCurrentState());
     }
 
     private enum States {
