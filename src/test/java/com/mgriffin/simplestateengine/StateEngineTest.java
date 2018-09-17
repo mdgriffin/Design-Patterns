@@ -39,9 +39,11 @@ public class StateEngineTest {
         assertEquals(States.ALIVE, se.getCurrentState());
 
         se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
-
         se.performAction(Events.SHOOT);
 
+        assertEquals(States.DEAD, se.getCurrentState());
+
+        se.performAction(Events.SHOOT);
         assertEquals(States.DEAD, se.getCurrentState());
     }
 
