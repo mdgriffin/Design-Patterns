@@ -1,4 +1,8 @@
 @startuml
+Interface StateChangeObserver {
+    void onStateChange(Enum state);
+}
+
 Class StateEngine {
     -EnumSet states;
     -EnumSet events;
@@ -12,5 +16,9 @@ Class StateEngine {
     +Enum getCurrentState()
 
     +void performAction()
+
+    +addObserver(StateChangeObserver observer);
+
+    +addObserver(Enum state, StateChangeObserver observer
 }
 @enduml
