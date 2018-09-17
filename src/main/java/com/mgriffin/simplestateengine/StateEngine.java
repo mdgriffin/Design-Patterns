@@ -1,9 +1,6 @@
 package com.mgriffin.simplestateengine;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class StateEngine {
 
@@ -12,6 +9,8 @@ public class StateEngine {
     private EnumSet events;
 
     private Enum currentState;
+
+    private List<StateChangeObserver> observers = new ArrayList();
 
     private Map<Enum, Map<Enum, Enum>> transitions;
 
@@ -44,7 +43,18 @@ public class StateEngine {
 
         if (nextState != null) {
             currentState = nextState;
+            notifyAllObservers(currentState);
         }
+    }
+
+    private void notifyAllObservers (Enum state) {
+        observers.stream().forEach(observer -> {
+            observer.onStateChange(state);
+        });
+    }
+
+    public void addObserver (StateChangeObserver observer) {
+        observers.add(observer);
     }
 
 }

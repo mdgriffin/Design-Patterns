@@ -52,6 +52,18 @@ public class StateEngineTest {
         DEAD
     }
 
+    @Test
+    public void canObserveChanges () {
+        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
+
+        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
+        se.addObserver(state -> {
+            System.out.println("This is in the state change observer");
+            assertEquals(States.DEAD ,state);
+        });
+        se.performAction(Events.SHOOT);
+    }
+
     private enum OtherStates {
         OPEN,
         CLOSED
