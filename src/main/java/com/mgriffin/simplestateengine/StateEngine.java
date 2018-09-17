@@ -1,13 +1,12 @@
 package com.mgriffin.simplestateengine;
 
-import javax.swing.plaf.nimbus.State;
 import java.util.*;
 
 public class StateEngine {
 
-    private EnumSet states;
+    private final EnumSet states;
 
-    private EnumSet events;
+    private final EnumSet events;
 
     private Enum currentState;
 
@@ -17,24 +16,11 @@ public class StateEngine {
 
     private Map<Enum, Map<Enum, Enum>> transitions;
 
-    public StateEngine (EnumSet states, EnumSet events, Enum startState) {
-        if (!states.contains(startState)) {
-            throw new IllegalArgumentException("Start State must be one of the defined states");
-        }
-
+    private StateEngine (EnumSet states, EnumSet events, Enum startState, Map<Enum, Map<Enum, Enum>> transitions) {
         this.states = states;
         this.events = events;
         this.currentState = startState;
-        transitions = new HashMap<>();
-        Iterator<Enum> statesIterator = states.iterator();
-
-        while(statesIterator.hasNext()) {
-            transitions.put(statesIterator.next(), new HashMap<>());
-        }
-    }
-
-    public void addTransition (Enum startState, Enum endState, Enum event) {
-        transitions.get(startState).put(event, endState);
+        this.transitions = transitions;
     }
 
     public Enum getCurrentState () {
@@ -42,11 +28,13 @@ public class StateEngine {
     }
 
     public void performAction (Enum action) {
-        Enum nextState = transitions.get(currentState).get(action);
+        if (transitions.get(currentState) != null && transitions.get(currentState).get(action) != null) {
+            Enum nextState = transitions.get(currentState).get(action);
 
-        if (nextState != null) {
-            currentState = nextState;
-            notifyAllObservers(currentState);
+            if (nextState != null) {
+                currentState = nextState;
+                notifyAllObservers(currentState);
+            }
         }
     }
 
@@ -67,6 +55,50 @@ public class StateEngine {
             stateObservers.put(state, new ArrayList());
         }
         stateObservers.get(state).add(observer);
+    }
+
+    public static class StateEngineBuilder {
+
+        private EnumSet states;
+
+        private EnumSet events;
+
+        private Enum startState;
+
+        private Map<Enum, Map<Enum, Enum>> transitions = new HashMap<>();
+
+        public StateEngineBuilder () {}
+
+        public StateEngineBuilder setStates (EnumSet states) {
+            this.states = states;
+            return this;
+        }
+
+        public StateEngineBuilder setEvents (EnumSet events) {
+            this.events = events;
+            return this;
+        }
+
+        public StateEngineBuilder setStartState (Enum startState) {
+            this.startState = startState;
+            return this;
+        }
+
+        public StateEngineBuilder addTransition (Enum startState, Enum endState, Enum event) {
+            if (transitions.get(startState) == null) {
+                transitions.put(startState, new HashMap<>());
+            }
+            transitions.get(startState).put(event, endState);
+
+            return this;
+        }
+
+        public StateEngine build () {
+            if (states == null || events == null || startState == null || transitions == null || !states.contains(startState)) {
+                throw new IllegalArgumentException();
+            }
+            return new StateEngine(states, events, startState, transitions);
+        }
     }
 
 }

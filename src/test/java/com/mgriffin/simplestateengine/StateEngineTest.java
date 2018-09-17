@@ -1,71 +1,75 @@
 package com.mgriffin.simplestateengine;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.EnumSet;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 public class StateEngineTest {
 
-    @Test
-    public void stateEngineShouldInstantiate () {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
+    private StateEngine stateEngine;
+
+    @Before
+    public void setup () {
+        stateEngine =  new StateEngine.StateEngineBuilder()
+            .setStates(EnumSet.allOf(States.class))
+            .setEvents(EnumSet.allOf(States.class))
+            .setStartState(States.ALIVE)
+            .addTransition(States.ALIVE, States.DEAD, Events.SHOOT)
+            .build();
     }
 
     @Test
-    public void whenAddingATransition_noExceptionThrown () {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
-        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
+    public void stateEngineInstantiated () {
+        assertNotNull(stateEngine);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void whenAddingInvalidStartState_exceptionThrown() {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), OtherStates.OPEN);
+        StateEngine se = new StateEngine.StateEngineBuilder()
+                .setStates(EnumSet.allOf(States.class))
+                .setEvents(EnumSet.allOf(States.class))
+                .setStartState(OtherStates.OPEN)
+                .addTransition(States.ALIVE, States.DEAD, Events.SHOOT)
+                .build();
     }
 
     @Test
     public void whenCreatingStateEngine_currentStateIsStartState () {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
-        assertEquals(States.ALIVE, se.getCurrentState());
+        assertEquals(States.ALIVE, stateEngine.getCurrentState());
     }
+
 
     @Test
     public void whenPerformingAction_currentStateChanged () {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
+        assertEquals(States.ALIVE, stateEngine.getCurrentState());
 
-        assertEquals(States.ALIVE, se.getCurrentState());
+        stateEngine.performAction(Events.SHOOT);
 
-        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
-        se.performAction(Events.SHOOT);
+        assertEquals(States.DEAD, stateEngine.getCurrentState());
 
-        assertEquals(States.DEAD, se.getCurrentState());
-
-        se.performAction(Events.SHOOT);
-        assertEquals(States.DEAD, se.getCurrentState());
+        stateEngine.performAction(Events.SHOOT);
+        assertEquals(States.DEAD, stateEngine.getCurrentState());
     }
 
     @Test
     public void canObserveChanges () {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
-
-        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
-        se.addObserver(state -> {
+        stateEngine.addObserver(state -> {
             assertEquals(States.DEAD ,state);
         });
-        se.performAction(Events.SHOOT);
+        stateEngine.performAction(Events.SHOOT);
     }
 
     @Test
     public void canObserverSpecificStateChange () {
-        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
-
-        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
-        se.addObserver(States.DEAD, state -> {
+        stateEngine.addObserver(States.DEAD, state -> {
             assertEquals(States.DEAD ,state);
         });
-        se.performAction(Events.SHOOT);
+        stateEngine.performAction(Events.SHOOT);
     }
 
     private enum States {
@@ -73,7 +77,7 @@ public class StateEngineTest {
         DEAD
     }
 
-    private enum OtherStates {
+    private enum OtherStates{
         OPEN,
         CLOSED
     }
