@@ -1,5 +1,6 @@
 package com.mgriffin.simplestateengine;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.*;
 
 public class StateEngine {
@@ -10,7 +11,9 @@ public class StateEngine {
 
     private Enum currentState;
 
-    private List<StateChangeObserver> observers = new ArrayList();
+    private List<StateChangeObserver> observers = new ArrayList<>();
+
+    private Map<Enum, List<StateChangeObserver>> stateObservers = new HashMap<>();
 
     private Map<Enum, Map<Enum, Enum>> transitions;
 
@@ -22,11 +25,11 @@ public class StateEngine {
         this.states = states;
         this.events = events;
         this.currentState = startState;
-        transitions = new HashMap();
+        transitions = new HashMap<>();
         Iterator<Enum> statesIterator = states.iterator();
 
         while(statesIterator.hasNext()) {
-            transitions.put(statesIterator.next(), new HashMap());
+            transitions.put(statesIterator.next(), new HashMap<>());
         }
     }
 
@@ -48,13 +51,22 @@ public class StateEngine {
     }
 
     private void notifyAllObservers (Enum state) {
-        observers.stream().forEach(observer -> {
-            observer.onStateChange(state);
-        });
+        observers.stream().forEach(observer -> observer.onStateChange(state));
+
+        if (stateObservers.get(state) != null) {
+            stateObservers.get(state).stream().forEach(observer -> observer.onStateChange(state));
+        }
     }
 
     public void addObserver (StateChangeObserver observer) {
         observers.add(observer);
+    }
+
+    public void addObserver (Enum state, StateChangeObserver observer) {
+        if (stateObservers.get(state) == null) {
+            stateObservers.put(state, new ArrayList());
+        }
+        stateObservers.get(state).add(observer);
     }
 
 }

@@ -9,7 +9,6 @@ import static junit.framework.TestCase.assertEquals;
 
 public class StateEngineTest {
 
-
     @Test
     public void stateEngineShouldInstantiate () {
         StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
@@ -47,21 +46,31 @@ public class StateEngineTest {
         assertEquals(States.DEAD, se.getCurrentState());
     }
 
-    private enum States {
-        ALIVE,
-        DEAD
-    }
-
     @Test
     public void canObserveChanges () {
         StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
 
         se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
         se.addObserver(state -> {
-            System.out.println("This is in the state change observer");
             assertEquals(States.DEAD ,state);
         });
         se.performAction(Events.SHOOT);
+    }
+
+    @Test
+    public void canObserverSpecificStateChange () {
+        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
+
+        se.addTransition(States.ALIVE, States.DEAD, Events.SHOOT);
+        se.addObserver(States.DEAD, state -> {
+            assertEquals(States.DEAD ,state);
+        });
+        se.performAction(Events.SHOOT);
+    }
+
+    private enum States {
+        ALIVE,
+        DEAD
     }
 
     private enum OtherStates {

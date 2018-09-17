@@ -2,6 +2,6 @@ package com.mgriffin.simplestateengine;
 
 public interface StateChangeObserver {
 
+    void onStateChange (Enum State);
 
-    public void onStateChange (Enum State);
 }
