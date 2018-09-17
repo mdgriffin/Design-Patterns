@@ -35,4 +35,8 @@ public class StateEngine {
         transitions.get(startState).put(event, endState);
     }
 
+    public Enum getCurrentState () {
+        return currentState;
+    }
+
 }

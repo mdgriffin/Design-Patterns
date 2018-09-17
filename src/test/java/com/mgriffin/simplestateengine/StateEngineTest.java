@@ -5,6 +5,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.EnumSet;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
 
 public class StateEngineTest {
@@ -24,6 +25,12 @@ public class StateEngineTest {
     @Test(expected = IllegalArgumentException.class)
     public void whenAddingInvalidStartState_exceptionThrown() {
         StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), OtherStates.OPEN);
+    }
+
+    @Test
+    public void whenCreatingStateEngine_currentStateIsStartState () {
+        StateEngine se = new StateEngine(EnumSet.allOf(States.class), EnumSet.allOf(Events.class), States.ALIVE);
+        assertEquals(States.ALIVE, se.getCurrentState());
     }
 
     private enum States {

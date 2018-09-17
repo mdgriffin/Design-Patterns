@@ -7,6 +7,8 @@ Class StateEngine {
 
     +StateEngine (EnumSet states, EnumSet events, Enum startState)
 
-    +void addTransition(Enum startState, Enum endState, Enum event);
+    +void addTransition(Enum startState, Enum endState, Enum event)
+
+    +Enum getCurrentState()
 }
 @enduml
