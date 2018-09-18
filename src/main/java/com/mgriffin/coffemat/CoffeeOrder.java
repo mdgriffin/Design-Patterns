@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class CoffeeOrder {
+public class CoffeeOrder implements Billable {
 
     private StateEngine state;
 
@@ -22,6 +22,9 @@ public class CoffeeOrder {
 
     private CoffeeOrder (Customer customer, CoffeeType coffeeType, CoffeeSize coffeeSize, List<CoffeeCondiment> condiments) {
         this.customer = customer;
+        this.coffeeType = coffeeType;
+        this.coffeeSize = coffeeSize;
+        this.condiments = condiments;
 
         this.state = new StateEngine.StateEngineBuilder()
             .setStates(EnumSet.allOf(OrderStates.class))
@@ -38,6 +41,11 @@ public class CoffeeOrder {
 
     public Enum getOrderState () {
         return this.state.getCurrentState();
+    }
+
+    public double getPrice () {
+        return (coffeeType.getPrice() * coffeeSize.getNumMillimeters()) + condiments
+            .stream().mapToDouble(condiment -> condiment.getPrice()).sum();
     }
 
     public static class CoffeeOrderBuilder {
@@ -75,7 +83,7 @@ public class CoffeeOrder {
         }
 
         public CoffeeOrder order () {
-            if (customer == null || coffeeType == null || coffeeType == null) {
+            if (customer == null || coffeeType == null || coffeeSize == null) {
                 throw new IllegalArgumentException();
             }
             return new CoffeeOrder (customer, coffeeType, coffeeSize, condiments);

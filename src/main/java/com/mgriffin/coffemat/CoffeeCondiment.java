@@ -1,7 +1,7 @@
 package com.mgriffin.coffemat;
 
 public enum CoffeeCondiment implements Billable {
-    CREAM (2d);
+    CREAM (0.2d);
 
     private double price;
 

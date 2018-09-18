@@ -1,9 +1,9 @@
 package com.mgriffin.coffemat;
 
 public enum CoffeeSize{
-    SMALL (2),
-    MEDIUM (2.5),
-    LARGE (3);
+    SMALL (250),
+    MEDIUM (350),
+    LARGE (500);
 
     private double numMillimeters;
 
@@ -12,6 +12,6 @@ public enum CoffeeSize{
     }
 
     public double getNumMillimeters () {
-        return getNumMillimeters();
+        return numMillimeters;
     }
 }

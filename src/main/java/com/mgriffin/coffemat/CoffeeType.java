@@ -1,7 +1,7 @@
 package com.mgriffin.coffemat;
 
 public enum CoffeeType implements Billable {
-    LATTE (2);
+    LATTE (0.007);
 
     private double pricePerMil;
 
