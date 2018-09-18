@@ -1,11 +1,15 @@
 @startuml
+package com.mgriffin <<Node>> {
+
+package simplestatengine <<Node>> {
+
 Interface StateChangeObserver {
     void onStateChange(Enum state);
 }
 
 Class StateEngine {
-    -EnumSet states;
-    -EnumSet events;
+    -EnumSet states
+    -EnumSet events
     -Enum currentState
     -Map<Enum, Map<Enum, Enum>> transitions
 
@@ -18,19 +22,69 @@ Class StateEngine {
 }
 
 class StateEngineBuilder {
-    -EnumSet states;
-    -EnumSet events;
-    -Enum startState;
-    -Map<Enum, Map<Enum, Enum>> transitions = new HashMap<>();;
+    -EnumSet states
+    -EnumSet events
+    -Enum startStat
+    -Map<Enum, Map<Enum, Enum>> transitions = new HashMap<>()
 
     +StateEngineBuilder();
 
-    +setStates(EnumSet states);
-    +setEvents(EnumSet events );
+    +setStates(EnumSet states)
+    +setEvents(EnumSet events )
     +setStartState(EnumSet, states);
-    +StateEngineBuilder addTransition (Enum startState, Enum endState, Enum event);
-    +StateEngine build();
+    +StateEngineBuilder addTransition (Enum startState, Enum endState, Enum event)
+    +StateEngine build()
 }
 
 StateEngine+----StateEngineBuilder
+
+}
+
+package coffeemat <<Node>> {
+    class CoffeeMaker {
+        -List<CoffeeOrder> orders
+        COffeeMaker()
+        +addOrder(CoffeeOrder order)
+    }
+
+    class CoffeeOrder {
+        +StateEngine state
+        +CoffeeOrder(Customer customer)
+        +getOrderState():OrderState
+
+    }
+
+    class Customer {
+        -String name
+        +Customer(String name)
+        +String getName()
+    }
+
+    enum OrderStates {
+        WAITING,
+        COFFEE,
+        MILK,
+        CONDIMENTS,
+        PAID,
+        MADE,
+        COMPLETED
+    }
+
+    enum OrderEvents {
+        SELECT_COFFEE,
+        SELECT_MILK,
+        SELECT_CONDIMENTS,
+        PAY,
+        MAKE,
+        DELIVER
+    }
+
+    CoffeeMaker <.. CoffeeOrder
+    CoffeeOrder ..> Customer
+    CoffeeOrder ..> OrderStates
+    CoffeeOrder ..> OrderEvents
+    CoffeeOrder <.. StateEngine
+}
+
+}
 @enduml
