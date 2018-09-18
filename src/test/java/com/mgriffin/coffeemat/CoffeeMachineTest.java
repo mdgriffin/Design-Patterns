@@ -3,16 +3,16 @@ package com.mgriffin.coffeemat;
 import com.mgriffin.coffemat.*;
 import org.junit.Test;
 
-public class CoffeeMakerTest {
+public class CoffeeMachineTest {
 
     @Test
     public void whenInstantiatedCoffeeMaker_instanceInstantiated () {
-        CoffeeMaker coffeeMaker = new CoffeeMaker();
+        CoffeeMachine coffeeMaker = new CoffeeMachine();
     }
 
     @Test
     public void whenAddingOrder_noExceptionThrown () {
-        CoffeeMaker coffeeMaker = new CoffeeMaker();
+        CoffeeMachine coffeeMaker = new CoffeeMachine();
         coffeeMaker.addOrder(new CoffeeOrder.CoffeeOrderBuilder()
             .setCustomer(new Customer("John Doe"))
             .setType(CoffeeType.LATTE)

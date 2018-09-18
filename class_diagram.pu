@@ -41,9 +41,9 @@ StateEngine+--StateEngineBuilder
 }
 
 package coffeemat <<Node>> {
-    class CoffeeMaker {
+    class CoffeeMachine {
         -List<CoffeeOrder> orders
-        COffeeMaker()
+        CoffeeMachine()
         +addOrder(CoffeeOrder order)
     }
 
@@ -94,7 +94,7 @@ package coffeemat <<Node>> {
 
     enum CoffeeCondiment
 
-    CoffeeMaker <.. CoffeeOrder
+    CoffeeMachine <.. CoffeeOrder
     CoffeeOrder ..> Customer
     CoffeeOrder ..> CoffeeType
     CoffeeOrder ..> CoffeeSize

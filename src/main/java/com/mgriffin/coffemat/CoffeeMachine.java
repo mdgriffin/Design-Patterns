@@ -3,11 +3,11 @@ package com.mgriffin.coffemat;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CoffeeMaker {
+public class CoffeeMachine {
 
     private List<CoffeeOrder> orders = new LinkedList<>();
 
-    public CoffeeMaker() {
+    public CoffeeMachine() {
 
     }
 
