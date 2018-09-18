@@ -1,8 +1,6 @@
 package com.mgriffin.coffeemat;
 
-import com.mgriffin.coffemat.CoffeeOrder;
-import com.mgriffin.coffemat.Customer;
-import com.mgriffin.coffemat.OrderStates;
+import com.mgriffin.coffemat.*;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -11,12 +9,22 @@ public class CoffeeOrderTest {
 
     @Test
     public void whenCreatingCoffeeOrder_orderInstantiated () {
-        CoffeeOrder coffeeOrder = new CoffeeOrder(new Customer("John Doe"));
+        CoffeeOrder coffeeOrder = new CoffeeOrder.CoffeeOrderBuilder()
+            .setCustomer(new Customer("John Doe"))
+            .setType(CoffeeType.LATTE)
+            .setSize(CoffeeSize.LARGE)
+            .addCondiment(CoffeeCondiment.CREAM)
+            .order();
     }
 
     @Test
     public void whenCreatingCoffeeOrder_initialStateIsWaiting () {
-        CoffeeOrder coffeeOrder = new CoffeeOrder(new Customer("John Doe"));
+        CoffeeOrder coffeeOrder =new CoffeeOrder.CoffeeOrderBuilder()
+            .setCustomer(new Customer("John Doe"))
+            .setType(CoffeeType.LATTE)
+            .setSize(CoffeeSize.LARGE)
+            .addCondiment(CoffeeCondiment.CREAM)
+            .order();
         assertEquals(OrderStates.WAITING, coffeeOrder.getOrderState());
     }
 }

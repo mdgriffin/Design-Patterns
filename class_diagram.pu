@@ -36,7 +36,7 @@ class StateEngineBuilder {
     +StateEngine build()
 }
 
-StateEngine+----StateEngineBuilder
+StateEngine+--StateEngineBuilder
 
 }
 
@@ -48,10 +48,30 @@ package coffeemat <<Node>> {
     }
 
     class CoffeeOrder {
-        +StateEngine state
-        +CoffeeOrder(Customer customer)
-        +getOrderState():OrderState
+        -StateEngine state
+        -Customer customer
+        -CoffeeType coffeeType
+        -CoffeeSize coffeeSize
+        -List<CoffeeCondiments> condiments
 
+        -CoffeeOrder(Customer customer)
+
+        +getOrderState():OrderState
+    }
+
+    class CoffeeOrderBuilder {
+        -StateEngine state
+        -Customer customer
+        -CoffeeType coffeeType
+        -CoffeeSize coffeeSize
+        -List<CoffeeCondiments> condiments
+
+        +CoffeeOrderBuilder ()
+
+        +setCustomer(Customer customer)
+        +setType (CoffeeType coffeeType)
+        +setSize (CoffeeSize coffeeSize);
+        +addCondiment (CoffeeCondiment condiment)
     }
 
     class Customer {
@@ -60,30 +80,35 @@ package coffeemat <<Node>> {
         +String getName()
     }
 
-    enum OrderStates {
-        WAITING,
-        COFFEE,
-        MILK,
-        CONDIMENTS,
-        PAID,
-        MADE,
-        COMPLETED
+    enum OrderStates
+
+    enum OrderEvents
+
+    interface Billable {
+        double getPrice();
     }
 
-    enum OrderEvents {
-        SELECT_COFFEE,
-        SELECT_MILK,
-        SELECT_CONDIMENTS,
-        PAY,
-        MAKE,
-        DELIVER
-    }
+    enum CoffeeSize
+
+    enum CoffeeType
+
+    enum CoffeeCondiment
 
     CoffeeMaker <.. CoffeeOrder
     CoffeeOrder ..> Customer
+    CoffeeOrder ..> CoffeeType
+    CoffeeOrder ..> CoffeeSize
+    CoffeeOrder ..> CoffeeCondiment
     CoffeeOrder ..> OrderStates
     CoffeeOrder ..> OrderEvents
     CoffeeOrder <.. StateEngine
+    CoffeeOrderBuilder ..> Customer
+    CoffeeOrderBuilder ..> CoffeeType
+    CoffeeOrderBuilder ..> CoffeeSize
+    CoffeeOrderBuilder ..> CoffeeCondiment
+    CoffeeType ..|> Billable
+    CoffeeCondiment ..|> Billable
+    CoffeeOrderBuilder --+ CoffeeOrder
 }
 
 }

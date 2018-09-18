@@ -2,7 +2,9 @@ package com.mgriffin.coffemat;
 
 import com.mgriffin.simplestateengine.StateEngine;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 public class CoffeeOrder {
 
@@ -10,9 +12,15 @@ public class CoffeeOrder {
 
     private Customer customer;
 
-    private double cost;
+    private CoffeeType coffeeType;
 
-    public CoffeeOrder (Customer customer) {
+    private CoffeeSize coffeeSize;
+
+    private List<CoffeeCondiment> condiments;
+
+    private  CoffeeOrder() {}
+
+    private CoffeeOrder (Customer customer, CoffeeType coffeeType, CoffeeSize coffeeSize, List<CoffeeCondiment> condiments) {
         this.customer = customer;
 
         this.state = new StateEngine.StateEngineBuilder()
@@ -31,4 +39,47 @@ public class CoffeeOrder {
     public Enum getOrderState () {
         return this.state.getCurrentState();
     }
+
+    public static class CoffeeOrderBuilder {
+
+        private Customer customer;
+
+        private CoffeeType coffeeType;
+
+        private CoffeeSize coffeeSize;
+
+        private List<CoffeeCondiment> condiments;
+
+        public CoffeeOrderBuilder () {
+            condiments = new ArrayList<>();
+        }
+
+        public CoffeeOrderBuilder setCustomer (Customer customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public CoffeeOrderBuilder setType (CoffeeType coffeeType) {
+            this.coffeeType = coffeeType;
+            return this;
+        }
+
+        public CoffeeOrderBuilder setSize (CoffeeSize coffeeSize) {
+            this.coffeeSize = coffeeSize;
+            return this;
+        }
+
+        public CoffeeOrderBuilder addCondiment (CoffeeCondiment condiment) {
+            this.condiments.add(condiment);
+            return this;
+        }
+
+        public CoffeeOrder order () {
+            if (customer == null || coffeeType == null || coffeeType == null) {
+                throw new IllegalArgumentException();
+            }
+            return new CoffeeOrder (customer, coffeeType, coffeeSize, condiments);
+        }
+    }
+
 }
