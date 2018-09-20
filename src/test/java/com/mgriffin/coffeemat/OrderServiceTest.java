@@ -7,16 +7,16 @@ import java.util.Arrays;
 
 public class OrderServiceTest {
 
+    private static final int NUM_MACHINES = 4;
+
     @Test
     public void whenInstantiatedCoffeeMaker_instanceInstantiated () {
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
-        OrderService orderService = new OrderService(Arrays.asList(coffeeMachine));
+        OrderService orderService = new OrderService(NUM_MACHINES);
     }
 
     @Test
     public void whenAddingOrder_noExceptionThrown () {
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
-        OrderService orderService = new OrderService(Arrays.asList(coffeeMachine));
+        OrderService orderService = new OrderService(NUM_MACHINES);
         orderService.addOrder(new CoffeeOrder.CoffeeOrderBuilder()
                 .setCustomer(new Customer("John Doe"))
                 .setType(CoffeeType.LATTE)
