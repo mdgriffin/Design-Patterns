@@ -14,7 +14,6 @@ Class StateEngine {
     -Map<Enum, Map<Enum, Enum>> transitions
 
     -StateEngine (EnumSet states, EnumSet events, Enum startState, Map<Enum, Map<Enum, Enum>> transitions)
-
     +Enum getCurrentState()
     +void performAction()
     +addObserver(StateChangeObserver observer);
@@ -28,7 +27,6 @@ class StateEngineBuilder {
     -Map<Enum, Map<Enum, Enum>> transitions = new HashMap<>()
 
     +StateEngineBuilder();
-
     +setStates(EnumSet states)
     +setEvents(EnumSet events )
     +setStartState(EnumSet, states);
@@ -42,9 +40,20 @@ StateEngine+--StateEngineBuilder
 
 package coffeemat <<Node>> {
     class CoffeeMachine {
-        -List<CoffeeOrder> orders
-        CoffeeMachine()
-        +addOrder(CoffeeOrder order)
+        +OrderService orderService;
+        +CoffeeOrder coffeeOrder;
+        +CoffeeMachine(OrderService orderService);
+        +available():boolean;
+        +start(CoffeeOrder coffeeOrder);
+        -completed(CoffeeOrder coffeeOrder);
+    }
+
+    class OrderService {
+        -List<CoffeeMachine> coffeeMachines;
+        -List<CoffeeOrder> orders = new LinkedList<>();
+        +OrderService (int numManchine);
+        +addOrder(CoffeeOrder coffeeOrder);
+        +orderCompleted (CoffeeMachine coffeeMachine, CoffeeOrder coffeeOrder);
     }
 
     class CoffeeOrder {
@@ -55,7 +64,6 @@ package coffeemat <<Node>> {
         -List<CoffeeCondiments> condiments
 
         -CoffeeOrder(Customer customer)
-
         +getOrderState():OrderState
     }
 
@@ -67,7 +75,6 @@ package coffeemat <<Node>> {
         -List<CoffeeCondiments> condiments
 
         +CoffeeOrderBuilder ()
-
         +setCustomer(Customer customer)
         +setType (CoffeeType coffeeType)
         +setSize (CoffeeSize coffeeSize);
@@ -94,6 +101,8 @@ package coffeemat <<Node>> {
 
     enum CoffeeCondiment
 
+    OrderService ..o offeeOrder
+    OrderService ..o CoffeeMachine
     CoffeeMachine <.. CoffeeOrder
     CoffeeOrder ..> Customer
     CoffeeOrder ..> CoffeeType
