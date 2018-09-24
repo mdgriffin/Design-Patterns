@@ -1,7 +1,7 @@
 # Design Patterns Project
 
 This application allows users to order coffee from the comfort of their desks
-and then be notified when the coffee is ready for collection from of the coffee machines.
+and then be notified when the coffee is ready for collection from one of the coffee machines.
 
 ## Patterns
 
@@ -9,7 +9,7 @@ and then be notified when the coffee is ready for collection from of the coffee 
 - Decorator
 - Observer
 - Singleton: Single Coffee Ordering endpoint
-- Strategy 
+- Strategy: Coffee bill calculator (normal strategy, discount strategy)
 - Factory Method 
 - Command 
 - Adapter 
