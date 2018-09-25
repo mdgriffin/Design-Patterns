@@ -2,7 +2,7 @@ package com.mgriffin.simplestateengine;
 
 import java.util.*;
 
-public class StateEngine {
+public class StateEngine implements StateChangeObservable {
 
     private final EnumSet states;
 
@@ -46,15 +46,27 @@ public class StateEngine {
         }
     }
 
+    @Override
     public void addObserver (StateChangeObserver observer) {
         observers.add(observer);
     }
 
+    @Override
     public void addObserver (Enum state, StateChangeObserver observer) {
         if (stateObservers.get(state) == null) {
             stateObservers.put(state, new ArrayList());
         }
         stateObservers.get(state).add(observer);
+    }
+
+    @Override
+    public void removeObserver (StateChangeObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void removeObserver (Enum state, StateChangeObserver observer) {
+        stateObservers.get(state).remove(observer);
     }
 
     public static class StateEngineBuilder {
