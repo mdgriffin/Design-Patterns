@@ -39,21 +39,20 @@ StateEngine+--StateEngineBuilder
 }
 
 package coffeemat <<Node>> {
-    class CoffeeMachine {
+    class CoffeeMachineImpl {
         +OrderService orderService;
         +CoffeeOrder coffeeOrder;
         +CoffeeMachine(OrderService orderService);
-        +available():boolean;
-        +start(CoffeeOrder coffeeOrder);
+
         -completed(CoffeeOrder coffeeOrder);
     }
 
-    class OrderService {
+    class OrderServiceImpl {
         -List<CoffeeMachine> coffeeMachines;
         -List<CoffeeOrder> orders = new LinkedList<>();
         +OrderService (int numManchine);
-        +addOrder(CoffeeOrder coffeeOrder);
-        +orderCompleted (CoffeeMachine coffeeMachine, CoffeeOrder coffeeOrder);
+
+        -getAvailableCoffeeMachine ():Optional<CoffeeMachine>
     }
 
     class CoffeeOrder {
@@ -95,12 +94,25 @@ package coffeemat <<Node>> {
         double getPrice();
     }
 
+    interface CoffeeMachine {
+        available():boolean;
+        start(CoffeeOrder coffeeOrder);
+    }
+
+
+    interface OrderService {
+        addOrder(CoffeeOrder coffeeOrder);
+        orderCompleted (CoffeeMachine coffeeMachine, CoffeeOrder coffeeOrder);
+    }
+
     enum CoffeeSize
 
     enum CoffeeType
 
     enum CoffeeCondiment
 
+    OrderServiceImpl ...|> OrderService
+    CoffeeMachineImpl ...|> CoffeeMachine
     OrderService ..o offeeOrder
     OrderService ..o CoffeeMachine
     CoffeeMachine <.. CoffeeOrder
