@@ -1,5 +1,6 @@
 package com.mgriffin.coffemat;
 
+import com.mgriffin.simplestateengine.StateChangeObserver;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
@@ -7,35 +8,36 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
 
-    private List<CoffeeMachineImpl> coffeeMachines;
+    private List<CoffeeMachine> coffeeMachines;
 
     private LinkedList<CoffeeOrder> orders = new LinkedList<>();
 
-    public OrderServiceImpl(int numMachines) {
-        this.coffeeMachines = new ArrayList<>();
+    public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
+        this.coffeeMachines = coffeeMachines;
 
-        for (int i = 0; i < numMachines; i++) {
-            this.coffeeMachines.add(new CoffeeMachineImpl(this));
-        }
+        coffeeMachines.forEach(coffeeMachine -> {
+            coffeeMachine.addObserver(this);
+        });
     }
 
+    @Override
     public void addOrder(CoffeeOrder order) {
         orders.add(order);
 
-        Optional<CoffeeMachineImpl> availableMachine = getAvailableCoffeeMachine();
+        Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
         if (availableMachine.isPresent()) {
             availableMachine.get().start(order);
         }
     }
 
-
-    private Optional<CoffeeMachineImpl> getAvailableCoffeeMachine () {
+    private Optional<CoffeeMachine> getAvailableCoffeeMachine () {
         return coffeeMachines.stream().filter(coffeeMachine -> coffeeMachine.available()).findFirst();
     }
 
+    @Override
     public void orderCompleted (CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder) {
         orders.remove(coffeeOrder);
 
@@ -43,4 +45,5 @@ public class OrderServiceImpl implements OrderService {
             coffeeMachine.start(orders.getFirst());
         }
     }
+
 }

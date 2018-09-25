@@ -14,8 +14,7 @@ public class CoffeeMachineTest {
 
     @Before
     public void setup () {
-        OrderServiceImpl orderService = new OrderServiceImpl(1);
-        coffeeMachine = new CoffeeMachineImpl(orderService);
+        coffeeMachine = new CoffeeMachineImpl();
     }
 
     @Test
