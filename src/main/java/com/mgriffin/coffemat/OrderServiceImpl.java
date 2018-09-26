@@ -1,8 +1,5 @@
 package com.mgriffin.coffemat;
 
-import com.mgriffin.simplestateengine.StateChangeObserver;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
