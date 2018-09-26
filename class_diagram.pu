@@ -113,7 +113,7 @@ package coffeemat <<Node>> {
 
     OrderServiceImpl ...|> OrderService
     CoffeeMachineImpl ...|> CoffeeMachine
-    OrderService ..o offeeOrder
+    OrderService ..o CoffeeOrder
     OrderService ..o CoffeeMachine
     CoffeeMachine <.. CoffeeOrder
     CoffeeOrder ..> Customer
