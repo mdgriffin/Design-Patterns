@@ -1,10 +1,9 @@
 package com.mgriffin.coffemat;
 
 public enum OrderEvents {
-    SELECT_COFFEE,
-    SELECT_MILK,
-    SELECT_CONDIMENTS,
-    PAY,
-    MAKE,
-    DELIVER
+    START_MAKING,
+    ADD_COFFEE,
+    ADD_MILK,
+    ADD_CONDIMENTS,
+    COMPLETE_ORDER;
 }

@@ -30,12 +30,10 @@ public class CoffeeOrder implements Billable {
             .setStates(EnumSet.allOf(OrderStates.class))
             .setEvents(EnumSet.allOf(OrderEvents.class))
             .setStartState(OrderStates.WAITING)
-            .addTransition(OrderStates.WAITING, OrderStates.COFFEE, OrderEvents.SELECT_COFFEE)
-            .addTransition(OrderStates.COFFEE, OrderStates.MILK, OrderEvents.SELECT_MILK)
-            .addTransition(OrderStates.MILK, OrderStates.CONDIMENTS, OrderEvents.SELECT_CONDIMENTS)
-            .addTransition(OrderStates.CONDIMENTS, OrderStates.PAID, OrderEvents.PAY)
-            .addTransition(OrderStates.PAID, OrderStates.MADE, OrderEvents.MAKE)
-            .addTransition(OrderStates.MADE, OrderStates.COMPLETED, OrderEvents.DELIVER)
+            .addTransition(OrderStates.WAITING, OrderStates.COFFEE_ADDED, OrderEvents.ADD_COFFEE)
+            .addTransition(OrderStates.COFFEE_ADDED, OrderStates.MILK_ADDED, OrderEvents.ADD_MILK)
+            .addTransition(OrderStates.MILK_ADDED, OrderStates.CONDIMENTS_ADDED, OrderEvents.ADD_CONDIMENTS)
+            .addTransition(OrderStates.CONDIMENTS_ADDED, OrderStates.COMPLETED, OrderEvents.COMPLETE_ORDER)
             .build();
     }
 

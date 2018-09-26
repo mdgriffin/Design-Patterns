@@ -27,4 +27,4 @@ and then be notified when the coffee is ready for collection from one of the cof
     - The system should handle various discounts to be applied
     - Discounts can be applied cumulatively
 - Customers have credits that are used after each order
-- The coffee machine have supplies of milk and various other condiments, each order will deplete these supplies
+- The coffee machine have supplies of milk and various other condiments, each order will depleted these supplies

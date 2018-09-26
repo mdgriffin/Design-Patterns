@@ -2,10 +2,9 @@ package com.mgriffin.coffemat;
 
 public enum OrderStates {
     WAITING,
-    COFFEE,
-    MILK,
-    CONDIMENTS,
-    PAID,
-    MADE,
+    IN_PROGRESS,
+    COFFEE_ADDED,
+    MILK_ADDED,
+    CONDIMENTS_ADDED,
     COMPLETED
 }
