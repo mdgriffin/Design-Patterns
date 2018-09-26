@@ -42,4 +42,9 @@ public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
         }
     }
 
+    @Override
+    public String toString () {
+        return "Number of orders: " + orders.size();
+    }
+
 }
