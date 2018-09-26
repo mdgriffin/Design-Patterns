@@ -1,7 +1,6 @@
 package com.mgriffin.coffemat;
 
 import com.mgriffin.simplestateengine.StateChangeObserver;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
