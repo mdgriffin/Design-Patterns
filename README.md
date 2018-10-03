@@ -30,3 +30,5 @@ and then be notified when the coffee is ready for collection from one of the cof
     - Discounts can be applied cumulatively
 - Customers have credits that are used after each order
 - The coffee machine have supplies of milk and various other condiments, each order will depleted these supplies
+- Change state pattern implementation to avoid using the simple state engine
+    - The coffee making state to provide messages, like adding milk, sugar etc
