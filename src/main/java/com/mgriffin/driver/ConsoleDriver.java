@@ -16,14 +16,18 @@ public class ConsoleDriver {
 
         OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
-        orderService.addOrder(new CoffeeOrder.CoffeeOrderBuilder()
-                .setCustomer(new Customer("John Doe"))
-                .setType(CoffeeType.LATTE)
-                .setSize(CoffeeSize.LARGE)
-                .addCondiment(CoffeeCondiment.CREAM)
-                .order());
+        CoffeeOrder order = new CoffeeOrder.CoffeeOrderBuilder()
+            .setCustomer(new Customer("John Doe"))
+            .setType(CoffeeType.LATTE)
+            .setSize(CoffeeSize.LARGE)
+            .addCondiment(CoffeeCondiment.CREAM)
+            .order();
+
+        orderService.addOrder(order);
 
         System.out.println(orderService.toString());
+
+
     }
 
 }
