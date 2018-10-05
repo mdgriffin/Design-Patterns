@@ -2,9 +2,7 @@ package com.mgriffin.driver;
 
 import com.mgriffin.coffemat.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ConsoleDriver {
 
@@ -20,10 +18,11 @@ public class ConsoleDriver {
         OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
         Customer customer = getCustomer();
+        CoffeeType coffeeType = getCoffeeTypes();
 
         CoffeeOrder order = new CoffeeOrder.CoffeeOrderBuilder()
             .setCustomer(customer)
-            .setType(CoffeeType.LATTE)
+            .setType(coffeeType)
             .setSize(CoffeeSize.LARGE)
             .addCondiment(CoffeeCondiment.CREAM)
             .order();
@@ -31,6 +30,27 @@ public class ConsoleDriver {
         orderService.addOrder(order);
 
         System.out.println(orderService.toString());
+    }
+
+    private static CoffeeType getCoffeeTypes () {
+        System.out.println("Please select Coffee Type from the following options: ");
+        Arrays.stream(CoffeeType.values()).forEach(type -> System.out.println((type.ordinal() + 1) + ": " + type.getDisplayName()));
+        int option = -1;
+
+        while (option <= 0 || option > CoffeeType.values().length) {
+            try {
+                option = scanner.nextInt();
+
+                if (option <= 0 || option > CoffeeType.values().length) {
+                    System.out.println("Invalid option please select again: ");
+                }
+            } catch(InputMismatchException exc) {
+                scanner.nextLine();
+                System.out.println("Invalid option, please enter a number: ");
+            }
+        }
+
+        return CoffeeType.values()[option - 1];
     }
 
     private static Customer getCustomer () {
