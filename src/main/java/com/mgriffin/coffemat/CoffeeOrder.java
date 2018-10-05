@@ -1,5 +1,7 @@
 package com.mgriffin.coffemat;
 
+import com.mgriffin.pricing.Discount;
+import com.mgriffin.pricing.RegularPrice;
 import com.mgriffin.simplestateengine.StateEngine;
 
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class CoffeeOrder implements Billable {
+
+    private Discount discount;
 
     private StateEngine state;
 
@@ -21,7 +25,8 @@ public class CoffeeOrder implements Billable {
 
     private  CoffeeOrder() {}
 
-    private CoffeeOrder (Customer customer, CoffeeType coffeeType, CoffeeSize coffeeSize, List<CoffeeCondiment> condiments) {
+    private CoffeeOrder (Discount discount, Customer customer, CoffeeType coffeeType, CoffeeSize coffeeSize, List<CoffeeCondiment> condiments) {
+        this.discount = discount;
         this.customer = customer;
         this.coffeeType = coffeeType;
         this.coffeeSize = coffeeSize;
@@ -43,8 +48,8 @@ public class CoffeeOrder implements Billable {
     }
 
     public double getPrice () {
-        return (coffeeType.getPrice() * coffeeSize.getNumMillimeters()) + condiments
-            .stream().mapToDouble(condiment -> condiment.getPrice()).sum();
+        return discount.calculate((coffeeType.getPrice() * coffeeSize.getNumMillimeters()) + condiments
+            .stream().mapToDouble(condiment -> condiment.getPrice()).sum());
     }
 
     @Override
@@ -57,6 +62,8 @@ public class CoffeeOrder implements Billable {
 
     public static class CoffeeOrderBuilder {
 
+        private Discount discount;
+
         private Customer customer;
 
         private CoffeeType coffeeType;
@@ -67,6 +74,11 @@ public class CoffeeOrder implements Billable {
 
         public CoffeeOrderBuilder () {
             condiments = new ArrayList<>();
+        }
+
+        public CoffeeOrderBuilder setDiscount (Discount discount) {
+            this.discount = discount;
+            return this;
         }
 
         public CoffeeOrderBuilder setCustomer (Customer customer) {
@@ -93,7 +105,12 @@ public class CoffeeOrder implements Billable {
             if (customer == null || coffeeType == null || coffeeSize == null) {
                 throw new IllegalArgumentException();
             }
-            return new CoffeeOrder (customer, coffeeType, coffeeSize, condiments);
+
+            if (discount == null) {
+                discount = new RegularPrice();
+            }
+
+            return new CoffeeOrder (discount, customer, coffeeType, coffeeSize, condiments);
         }
     }
 
