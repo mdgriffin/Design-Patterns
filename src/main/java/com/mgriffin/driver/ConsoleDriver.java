@@ -18,12 +18,13 @@ public class ConsoleDriver {
         OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
         Customer customer = getCustomer();
-        CoffeeType coffeeType = getCoffeeTypes();
+        CoffeeType coffeeType = getCoffeeType();
+        CoffeeSize coffeeSize = getSize();
 
         CoffeeOrder order = new CoffeeOrder.CoffeeOrderBuilder()
             .setCustomer(customer)
             .setType(coffeeType)
-            .setSize(CoffeeSize.LARGE)
+            .setSize(coffeeSize)
             .addCondiment(CoffeeCondiment.CREAM)
             .order();
 
@@ -32,7 +33,7 @@ public class ConsoleDriver {
         System.out.println(orderService.toString());
     }
 
-    private static CoffeeType getCoffeeTypes () {
+    private static CoffeeType getCoffeeType () {
         System.out.println("Please select Coffee Type from the following options: ");
         Arrays.stream(CoffeeType.values()).forEach(type -> System.out.println((type.ordinal() + 1) + ": " + type.getDisplayName()));
         int option = -1;
@@ -51,6 +52,27 @@ public class ConsoleDriver {
         }
 
         return CoffeeType.values()[option - 1];
+    }
+
+    private static CoffeeSize getSize () {
+        System.out.println("Please select the size of the coffee: ");
+        Arrays.stream(CoffeeSize.values()).forEach(size -> System.out.println((size.ordinal() + 1) + ": " + size.getDisplayName()));
+        int option = -1;
+
+        while (option <= 0 || option > CoffeeSize.values().length) {
+            try {
+                option = scanner.nextInt();
+
+                if (option <= 0 || option > CoffeeSize.values().length) {
+                    System.out.println("Invalid option please select again: ");
+                }
+            } catch(InputMismatchException exc) {
+                scanner.nextLine();
+                System.out.println("Invalid option, please enter a number: ");
+            }
+        }
+
+        return CoffeeSize.values()[option - 1];
     }
 
     private static Customer getCustomer () {
