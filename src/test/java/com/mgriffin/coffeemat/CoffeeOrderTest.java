@@ -1,6 +1,7 @@
 package com.mgriffin.coffeemat;
 
 import com.mgriffin.coffemat.*;
+import com.mgriffin.pricing.BlackFridayPrice;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -44,7 +45,6 @@ public class CoffeeOrderTest {
                 .order();
     }
 
-
     @Test
     public void whenCreatingCoffeeOrder_initialStateIsWaiting () {
         CoffeeOrder coffeeOrder =new CoffeeOrder.CoffeeOrderBuilder()
@@ -65,5 +65,18 @@ public class CoffeeOrderTest {
                 .addCondiment(CoffeeCondiment.CREAM)
                 .order();
         assertEquals(3.7d, coffeeOrder.getPrice());
+    }
+
+    @Test
+    public void whenCreatingCoffeeOrder_discountApplied () {
+        CoffeeOrder coffeeOrder = new CoffeeOrder.CoffeeOrderBuilder()
+            .setDiscount(new BlackFridayPrice())
+            .setCustomer(new Customer("John Doe"))
+            .setType(CoffeeType.LATTE)
+            .setSize(CoffeeSize.LARGE)
+            .addCondiment(CoffeeCondiment.CREAM)
+            .order();
+
+        assertEquals(2.96d, coffeeOrder.getPrice(), 0.001);
     }
 }
