@@ -41,7 +41,6 @@ public class ConsoleDriver {
         Arrays.stream(CoffeeSize.values()).forEach(size -> System.out.println((size.ordinal() + 1) + ": " + size.getDisplayName()));
         int option = -1;
 
-
         return CoffeeSize.values()[getValidInt(CoffeeSize.values().length) - 1];
     }
 
@@ -84,24 +83,24 @@ public class ConsoleDriver {
         return new Customer(customerName);
     }
 
-    private static int getValidInt (int maxVal) {
-        int option = -1;
+private static int getValidInt (int maxVal) {
+    int option = -1;
 
-        while (option <= 0 || option > maxVal) {
-            try {
-                option = scanner.nextInt();
-                scanner.nextLine();
+    while (option <= 0 || option > maxVal) {
+        try {
+            option = scanner.nextInt();
+            scanner.nextLine();
 
-                if (option <= 0 || option > maxVal) {
-                    System.out.println("Invalid option please select again (1 - " + maxVal + "): ");
-                }
-            } catch(InputMismatchException exc) {
-                scanner.nextLine();
-                System.out.println("Invalid option, please enter a number: ");
+            if (option <= 0 || option > maxVal) {
+                System.out.println("Invalid option please select again (1 - " + maxVal + "): ");
             }
+        } catch(InputMismatchException exc) {
+            scanner.nextLine();
+            System.out.println("Invalid option, please enter a number: ");
         }
-
-        return option;
     }
+
+    return option;
+}
 
 }
