@@ -5,6 +5,7 @@ import com.mgriffin.simplestateengine.StateEngine;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class CoffeeOrder implements Billable {
 
@@ -44,6 +45,14 @@ public class CoffeeOrder implements Billable {
     public double getPrice () {
         return (coffeeType.getPrice() * coffeeSize.getNumMillimeters()) + condiments
             .stream().mapToDouble(condiment -> condiment.getPrice()).sum();
+    }
+
+    @Override
+    public String toString () {
+        return "Customer: " + customer.getName() +
+                "\nType: " + coffeeType +
+                "\nSize: " + coffeeSize +
+                "\nCondiments: " + IntStream.range(0, condiments.size()).mapToObj(i -> "\n" + i + ":" + condiments.get(i)).reduce("", String::concat);
     }
 
     public static class CoffeeOrderBuilder {

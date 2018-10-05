@@ -22,6 +22,9 @@ public class ConsoleDriver {
         coffeeOrderBuilder.setType(getCoffeeType());
         coffeeOrderBuilder.setSize(getSize());
         getCondiments().stream().forEach(coffeeCondiment -> coffeeOrderBuilder.addCondiment(coffeeCondiment));
+        CoffeeOrder coffeeOrder = coffeeOrderBuilder.order();
+
+        System.out.println("Your order: \n" + coffeeOrder.toString());
 
         orderService.addOrder(coffeeOrderBuilder.order());
 
