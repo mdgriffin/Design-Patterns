@@ -33,20 +33,7 @@ public class ConsoleDriver {
         Arrays.stream(CoffeeType.values()).forEach(type -> System.out.println((type.ordinal() + 1) + ": " + type.getDisplayName()));
         int option = -1;
 
-        while (option <= 0 || option > CoffeeType.values().length) {
-            try {
-                option = scanner.nextInt();
-
-                if (option <= 0 || option > CoffeeType.values().length) {
-                    System.out.println("Invalid option please select again: ");
-                }
-            } catch(InputMismatchException exc) {
-                scanner.nextLine();
-                System.out.println("Invalid option, please enter a number: ");
-            }
-        }
-
-        return CoffeeType.values()[option - 1];
+        return CoffeeType.values()[getValidInt(CoffeeType.values().length) - 1];
     }
 
     private static CoffeeSize getSize () {
@@ -54,20 +41,8 @@ public class ConsoleDriver {
         Arrays.stream(CoffeeSize.values()).forEach(size -> System.out.println((size.ordinal() + 1) + ": " + size.getDisplayName()));
         int option = -1;
 
-        while (option <= 0 || option > CoffeeSize.values().length) {
-            try {
-                option = scanner.nextInt();
 
-                if (option <= 0 || option > CoffeeSize.values().length) {
-                    System.out.println("Invalid option please select again: ");
-                }
-            } catch(InputMismatchException exc) {
-                scanner.nextLine();
-                System.out.println("Invalid option, please enter a number: ");
-            }
-        }
-
-        return CoffeeSize.values()[option - 1];
+        return CoffeeSize.values()[getValidInt(CoffeeSize.values().length) - 1];
     }
 
     private static List<CoffeeCondiment> getCondiments () {
@@ -88,25 +63,10 @@ public class ConsoleDriver {
     }
 
     private static CoffeeCondiment getCondiment () {
-        int option = -1;
         System.out.println("Please select condiments: ");
         Arrays.stream(CoffeeCondiment.values()).forEach(size -> System.out.println((size.ordinal() + 1) + ": " + size.getDisplayName()));
 
-        while (option <= 0 || option > CoffeeCondiment.values().length) {
-            try {
-                option = scanner.nextInt();
-                scanner.nextLine();
-
-                if (option <= 0 || option > CoffeeCondiment.values().length) {
-                    System.out.println("Invalid option please select again: ");
-                }
-            } catch(InputMismatchException exc) {
-                scanner.nextLine();
-                System.out.println("Invalid option, please enter a number: ");
-            }
-        }
-
-        return CoffeeCondiment.values()[option - 1];
+        return CoffeeCondiment.values()[getValidInt(CoffeeCondiment.values().length) - 1];
     }
 
     private static Customer getCustomer () {
@@ -122,6 +82,26 @@ public class ConsoleDriver {
         }
 
         return new Customer(customerName);
+    }
+
+    private static int getValidInt (int maxVal) {
+        int option = -1;
+
+        while (option <= 0 || option > maxVal) {
+            try {
+                option = scanner.nextInt();
+                scanner.nextLine();
+
+                if (option <= 0 || option > maxVal) {
+                    System.out.println("Invalid option please select again (1 - " + maxVal + "): ");
+                }
+            } catch(InputMismatchException exc) {
+                scanner.nextLine();
+                System.out.println("Invalid option, please enter a number: ");
+            }
+        }
+
+        return option;
     }
 
 }
