@@ -4,8 +4,11 @@ import com.mgriffin.coffemat.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ConsoleDriver {
+
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main (String[] args) {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
@@ -16,8 +19,10 @@ public class ConsoleDriver {
 
         OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
+        Customer customer = getCustomer();
+
         CoffeeOrder order = new CoffeeOrder.CoffeeOrderBuilder()
-            .setCustomer(new Customer("John Doe"))
+            .setCustomer(customer)
             .setType(CoffeeType.LATTE)
             .setSize(CoffeeSize.LARGE)
             .addCondiment(CoffeeCondiment.CREAM)
@@ -26,8 +31,21 @@ public class ConsoleDriver {
         orderService.addOrder(order);
 
         System.out.println(orderService.toString());
+    }
 
+    private static Customer getCustomer () {
+        String customerName = "";
 
+        System.out.print("Please enter customer name: ");
+
+        customerName = scanner.nextLine();
+
+        while (customerName.length() == 0) {
+            System.out.print("Please enter a valid customer name: ");
+            customerName = scanner.nextLine();
+        }
+
+        return new Customer(customerName);
     }
 
 }
