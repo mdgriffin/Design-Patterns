@@ -43,6 +43,22 @@ public class CoffeeOrder implements Billable {
             .build();
     }
 
+    public void addCoffee () {
+        this.state.performAction(OrderEvents.ADD_COFFEE);
+    }
+
+    public void addMilk () {
+        this.state.performAction(OrderEvents.ADD_MILK);
+    }
+
+    public void addCondiments () {
+        this.state.performAction(OrderEvents.ADD_CONDIMENTS);
+    }
+
+    public void completeOrder () {
+        this.state.performAction(OrderEvents.COMPLETE_ORDER);
+    }
+
     public Enum getOrderState () {
         return this.state.getCurrentState();
     }

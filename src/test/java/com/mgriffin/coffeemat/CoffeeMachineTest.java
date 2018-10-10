@@ -7,6 +7,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class CoffeeMachineTest {
 
@@ -36,6 +37,20 @@ public class CoffeeMachineTest {
                 .addCondiment(CoffeeCondiment.CREAM)
                 .order());
         assertFalse(coffeeMachine.available());
+    }
+
+    @Test
+    public void coffeeOrderStateChanges_whenMachineAvailable () {
+        CoffeeOrder coffeeOrder = new CoffeeOrder.CoffeeOrderBuilder()
+                .setCustomer(new Customer("John Doe"))
+                .setType(CoffeeType.LATTE)
+                .setSize(CoffeeSize.LARGE)
+                .addCondiment(CoffeeCondiment.CREAM)
+                .order();
+
+        assertEquals(OrderStates.WAITING, coffeeOrder.getOrderState());
+        coffeeMachine.start(coffeeOrder);
+        assertEquals(OrderStates.COFFEE_ADDED, coffeeOrder.getOrderState());
     }
 
 }

@@ -5,7 +5,7 @@ import com.mgriffin.simplestateengine.StateChangeObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoffeeMachineImpl implements CoffeeMachine {
+public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable {
 
     CoffeeOrder coffeeOrder;
 
@@ -23,6 +23,7 @@ public class CoffeeMachineImpl implements CoffeeMachine {
     public void start (CoffeeOrder coffeeOrder) {
         if (available()) {
             this.coffeeOrder = coffeeOrder;
+            this.coffeeOrder.addCoffee();
         }
     }
 
