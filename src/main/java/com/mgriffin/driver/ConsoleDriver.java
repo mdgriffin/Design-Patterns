@@ -34,7 +34,6 @@ public class ConsoleDriver {
     private static CoffeeType getCoffeeType () {
         System.out.println("Please select Coffee Type from the following options: ");
         Arrays.stream(CoffeeType.values()).forEach(type -> System.out.println((type.ordinal() + 1) + ": " + type.getDisplayName()));
-        int option = -1;
 
         return CoffeeType.values()[getValidInt(CoffeeType.values().length) - 1];
     }
@@ -42,7 +41,6 @@ public class ConsoleDriver {
     private static CoffeeSize getSize () {
         System.out.println("Please select the size of the coffee: ");
         Arrays.stream(CoffeeSize.values()).forEach(size -> System.out.println((size.ordinal() + 1) + ": " + size.getDisplayName()));
-        int option = -1;
 
         return CoffeeSize.values()[getValidInt(CoffeeSize.values().length) - 1];
     }
