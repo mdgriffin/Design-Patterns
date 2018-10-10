@@ -54,11 +54,8 @@ public class CoffeeOrder implements Billable {
 
     @Override
     public String toString () {
-        return "Customer: " + customer.getName() +
-                "\nType: " + coffeeType +
-                "\nSize: " + coffeeSize +
-                "\nCondiments: " + IntStream.range(0, condiments.size()).mapToObj(i -> "\n" + i + ":" + condiments.get(i)).reduce("", String::concat) +
-                "\n\nPrice: " + String.format("%.2f", getPrice());
+        return "Thanks " + customer.getName() +
+                "\nYou ordered a " + coffeeSize + " " + coffeeType + " with " + condiments.stream().map(condiment -> condiment.getDisplayName() + ",").reduce("", String::concat);
      }
 
     public static class CoffeeOrderBuilder {
