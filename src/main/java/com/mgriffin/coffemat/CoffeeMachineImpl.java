@@ -1,11 +1,9 @@
 package com.mgriffin.coffemat;
 
-import com.mgriffin.simplestateengine.StateChangeObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable {
+public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable  {
 
     CoffeeOrder coffeeOrder;
 
