@@ -29,6 +29,8 @@ public class ConsoleDriver {
         orderService.addOrder(coffeeOrderBuilder.order());
 
         System.out.println(orderService.toString());
+
+        System.exit(0);
     }
 
     private static CoffeeType getCoffeeType () {

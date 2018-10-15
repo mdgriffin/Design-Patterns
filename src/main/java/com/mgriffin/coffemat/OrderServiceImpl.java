@@ -14,6 +14,8 @@ public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
         this.coffeeMachines = coffeeMachines;
 
         coffeeMachines.forEach(coffeeMachine -> {
+            Thread machineThread = new Thread(coffeeMachine);
+            machineThread.start();
             coffeeMachine.addObserver(this);
         });
     }

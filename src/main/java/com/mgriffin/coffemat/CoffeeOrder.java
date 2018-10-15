@@ -44,18 +44,22 @@ public class CoffeeOrder implements Billable {
     }
 
     public void addCoffee () {
+        System.out.println("Adding Coffee");
         this.state.performAction(OrderEvents.ADD_COFFEE);
     }
 
     public void addMilk () {
+        System.out.println("Adding Milk");
         this.state.performAction(OrderEvents.ADD_MILK);
     }
 
     public void addCondiments () {
+        System.out.println("Adding Condiments");
         this.state.performAction(OrderEvents.ADD_CONDIMENTS);
     }
 
     public void completeOrder () {
+        System.out.println("Completing Order");
         this.state.performAction(OrderEvents.COMPLETE_ORDER);
     }
 

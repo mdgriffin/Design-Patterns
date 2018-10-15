@@ -9,7 +9,10 @@ public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable  {
 
     List<CoffeeOrderObserver> observers = new ArrayList();
 
+    private boolean running;
+
     public CoffeeMachineImpl() {
+        running = true;
     }
 
     @Override
@@ -23,6 +26,11 @@ public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable  {
             this.coffeeOrder = coffeeOrder;
             this.coffeeOrder.addCoffee();
         }
+    }
+
+    @Override
+    public void stop() {
+        running = false;
     }
 
     private void completed (CoffeeOrder coffeeOrder) {
@@ -39,4 +47,23 @@ public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable  {
     public void removeObserver (CoffeeOrderObserver observer) {
         observers.remove(observer);
     }
+
+    @Override
+    public void run() {
+        while (running) {
+            if (!available()) {
+                try {
+                    coffeeOrder.addCoffee();
+                    Thread.sleep(1000);
+                    coffeeOrder.addMilk();
+                    Thread.sleep(10000);
+                    coffeeOrder.addCondiments();
+                    Thread.sleep(1000);
+                    coffeeOrder.completeOrder();
+                } catch (InterruptedException exc) {
+                    running = false;
+                }
+            }
+        }
+}
 }
