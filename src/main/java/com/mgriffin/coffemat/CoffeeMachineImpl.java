@@ -56,7 +56,7 @@ public class CoffeeMachineImpl implements CoffeeMachine, OrderObservable  {
                     coffeeOrder.addCoffee();
                     Thread.sleep(1000);
                     coffeeOrder.addMilk();
-                    Thread.sleep(10000);
+                    Thread.sleep(1000);
                     coffeeOrder.addCondiments();
                     Thread.sleep(1000);
                     coffeeOrder.completeOrder();
