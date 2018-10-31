@@ -17,7 +17,7 @@ public class StateEngineTest {
     public void setup () {
         stateEngine =  new StateEngine.StateEngineBuilder()
             .setStates(EnumSet.allOf(States.class))
-            .setEvents(EnumSet.allOf(States.class))
+            .setEvents(EnumSet.allOf(Events.class))
             .setStartState(States.ALIVE)
             .addTransition(States.ALIVE, States.DEAD, Events.SHOOT)
             .build();
@@ -30,6 +30,16 @@ public class StateEngineTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenAddingInvalidStartState_exceptionThrown() {
+        StateEngine se = new StateEngine.StateEngineBuilder()
+                .setStates(EnumSet.allOf(States.class))
+                .setEvents(EnumSet.allOf(Events.class))
+                .setStartState(OtherStates.OPEN)
+                .addTransition(States.ALIVE, States.DEAD, Events.SHOOT)
+                .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenSameEnumUsedForBothStatesAndEvents_exceptionThrown() {
         StateEngine se = new StateEngine.StateEngineBuilder()
                 .setStates(EnumSet.allOf(States.class))
                 .setEvents(EnumSet.allOf(States.class))

@@ -1,12 +1,13 @@
 package com.mgriffin.simplestateengine;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class StateEngine implements StateChangeObservable {
 
-    private final EnumSet states;
+    private final Set states;
 
-    private final EnumSet events;
+    private final Set events;
 
     private Enum currentState;
 
@@ -16,7 +17,11 @@ public class StateEngine implements StateChangeObservable {
 
     private Map<Enum, Map<Enum, Enum>> transitions;
 
-    private StateEngine (EnumSet states, EnumSet events, Enum startState, Map<Enum, Map<Enum, Enum>> transitions) {
+    private StateEngine (Set states, Set events, Enum startState, Map<Enum, Map<Enum, Enum>> transitions) {
+        if (states.equals(events)) {
+            throw new IllegalArgumentException("States and Events cannot be the same");
+        }
+
         this.states = states;
         this.events = events;
         this.currentState = startState;

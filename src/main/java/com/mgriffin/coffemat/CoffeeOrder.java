@@ -1,6 +1,5 @@
 package com.mgriffin.coffemat;
 
-import com.mgriffin.events.OrderEvents;
 import com.mgriffin.pricing.Discount;
 import com.mgriffin.pricing.RegularPrice;
 import com.mgriffin.simplestateengine.StateEngine;
