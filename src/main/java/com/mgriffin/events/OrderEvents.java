@@ -1,4 +1,4 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.events;
 
 public enum OrderEvents {
     START_MAKING,

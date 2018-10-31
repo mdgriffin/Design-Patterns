@@ -1,5 +1,6 @@
 package com.mgriffin.coffemat;
 
+import com.mgriffin.events.OrderEvents;
 import com.mgriffin.pricing.Discount;
 import com.mgriffin.pricing.RegularPrice;
 import com.mgriffin.simplestateengine.StateEngine;
@@ -7,7 +8,6 @@ import com.mgriffin.simplestateengine.StateEngine;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class CoffeeOrder implements Billable {
 

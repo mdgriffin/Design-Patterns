@@ -1,6 +1,7 @@
 package com.mgriffin.driver;
 
 import com.mgriffin.coffemat.*;
+import com.mgriffin.events.OrderObserver;
 
 import java.util.*;
 
@@ -12,7 +13,7 @@ public class ConsoleDriver {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
         CoffeeOrder.CoffeeOrderBuilder coffeeOrderBuilder = new CoffeeOrder.CoffeeOrderBuilder();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 1; i++) {
             coffeeMachines.add(new CoffeeMachineImpl());
         }
 
@@ -26,11 +27,18 @@ public class ConsoleDriver {
 
         System.out.println("Your order: \n" + coffeeOrder.toString());
 
-        orderService.addOrder(coffeeOrderBuilder.order());
+        CoffeeOrder order = coffeeOrderBuilder.order();
+        orderService.addOrder(order);
+
+        ((OrderServiceImpl) orderService).addObserver(order, new OrderObserver() {
+            @Override
+            public void orderCompleted() {
+                System.out.println("Order Completed From Console Driver");
+                System.exit(0);
+            }
+        });
 
         System.out.println(orderService.toString());
-
-        System.exit(0);
     }
 
     private static CoffeeType getCoffeeType () {

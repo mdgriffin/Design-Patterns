@@ -1,21 +1,23 @@
 package com.mgriffin.coffemat;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import com.mgriffin.events.MachineObserver;
+import com.mgriffin.events.OrderObservable;
+import com.mgriffin.events.OrderObserver;
 
-public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
+import java.util.*;
+
+public class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable {
 
     private List<CoffeeMachine> coffeeMachines;
 
     private LinkedList<CoffeeOrder> orders = new LinkedList<>();
 
+    private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
+
     public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
         this.coffeeMachines = coffeeMachines;
 
         coffeeMachines.forEach(coffeeMachine -> {
-            Thread machineThread = new Thread(coffeeMachine);
-            machineThread.start();
             coffeeMachine.addObserver(this);
         });
     }
@@ -27,7 +29,10 @@ public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
         Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
         if (availableMachine.isPresent()) {
-            availableMachine.get().start(order);
+            CoffeeMachine coffeeMachine = availableMachine.get();
+            Thread machineThread = new Thread(coffeeMachine);
+            coffeeMachine.start(order);
+            machineThread.start();
         }
     }
 
@@ -39,6 +44,10 @@ public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
     public void orderCompleted (CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder) {
         orders.remove(coffeeOrder);
 
+        if (observers.get(coffeeOrder) != null) {
+            observers.get(coffeeOrder).forEach(observer -> observer.orderCompleted());
+        }
+
         if (orders.size() > 0) {
             coffeeMachine.start(orders.getFirst());
         }
@@ -49,4 +58,18 @@ public class OrderServiceImpl implements OrderService, CoffeeOrderObserver {
         return "Number of orders: " + orders.size();
     }
 
+    @Override
+    public void addObserver(CoffeeOrder order, OrderObserver observer) {
+        if (observers.get(order) == null) {
+            observers.put(order, new ArrayList<OrderObserver>());
+        }
+        observers.get(order).add(observer);
+    }
+
+    @Override
+    public void removeObserver(CoffeeOrder order, OrderObserver observer) {
+        if (observers.get(order) != null) {
+            observers.get(order).removeIf(listOrder -> listOrder.equals(order));
+        }
+    }
 }
