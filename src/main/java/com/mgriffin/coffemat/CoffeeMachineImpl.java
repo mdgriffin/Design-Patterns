@@ -29,7 +29,23 @@ public class CoffeeMachineImpl implements CoffeeMachine {
         }
     }
 
-    private void completed (CoffeeOrder coffeeOrder) {
+    private void addCoffee () {
+        coffeeOrder.addCoffee();
+        observers.forEach(observer -> observer.coffeeAdded(this, coffeeOrder));
+    }
+
+    private void addMilk () {
+        coffeeOrder.addMilk();
+        observers.forEach(observer -> observer.milkAdded(this, coffeeOrder));
+    }
+
+    private void addCondiments() {
+        coffeeOrder.addCondiments();
+        observers.forEach(observer -> observer.condimentsAdded(this, coffeeOrder));
+    }
+
+    private void completeOrder () {
+        coffeeOrder.completeOrder();
         observers.forEach(observer -> observer.orderCompleted(this, coffeeOrder));
     }
 
@@ -47,14 +63,13 @@ public class CoffeeMachineImpl implements CoffeeMachine {
     public void run() {
         if (!available()) {
             try {
-                coffeeOrder.addCoffee();
+                addCoffee();
                 Thread.sleep(1000);
-                coffeeOrder.addMilk();
+                addMilk();
                 Thread.sleep(1000);
-                coffeeOrder.addCondiments();
+                addCondiments();
                 Thread.sleep(1000);
-                coffeeOrder.completeOrder();
-                completed(coffeeOrder);
+                completeOrder();
             } catch (InterruptedException exc) {
                 System.out.println("Exception");
                 System.out.println(exc);

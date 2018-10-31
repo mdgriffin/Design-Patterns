@@ -13,7 +13,7 @@ public class ConsoleDriver {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
         CoffeeOrder.CoffeeOrderBuilder coffeeOrderBuilder = new CoffeeOrder.CoffeeOrderBuilder();
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 4; i++) {
             coffeeMachines.add(new CoffeeMachineImpl());
         }
 
@@ -32,8 +32,23 @@ public class ConsoleDriver {
 
         ((OrderServiceImpl) orderService).addObserver(order, new OrderObserver() {
             @Override
+            public void coffeeAdded() {
+                System.out.println("Coffee Added");
+            }
+
+            @Override
+            public void milkAdded() {
+                System.out.println("Milk Added");
+            }
+
+            @Override
+            public void condimentsAdded() {
+                System.out.println("Condiments Added");
+            }
+
+            @Override
             public void orderCompleted() {
-                System.out.println("Order Completed From Console Driver");
+                System.out.println("Order Completed");
                 System.exit(0);
             }
         });

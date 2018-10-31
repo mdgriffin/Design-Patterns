@@ -38,6 +38,27 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
     }
 
     @Override
+    public void coffeeAdded(CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder) {
+        if (observers.get(coffeeOrder) != null) {
+            observers.get(coffeeOrder).forEach(observer -> observer.coffeeAdded());
+        }
+    }
+
+    @Override
+    public void milkAdded(CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder) {
+        if (observers.get(coffeeOrder) != null) {
+            observers.get(coffeeOrder).forEach(observer -> observer.milkAdded());
+        }
+    }
+
+    @Override
+    public void condimentsAdded(CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder) {
+        if (observers.get(coffeeOrder) != null) {
+            observers.get(coffeeOrder).forEach(observer -> observer.condimentsAdded());
+        }
+    }
+
+    @Override
     public void orderCompleted (CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder) {
         orders.remove(coffeeOrder);
 
