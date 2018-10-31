@@ -13,7 +13,7 @@ and then be notified when the coffee is ready for collection from one of the cof
 - [ ] Singleton: Get single order service, so that all clients will be communicating with the one service
 - [x]  Strategy: Coffee bill calculator (normal strategy, discount strategy)
 - [ ] Factory Method 
-- [ ] Command 
+- [x] Command: Registering a callback method when the order client finishing processing the order 
 - [ ] Adapter 
 - [ ] Template Method 
 - [ ] Composite 

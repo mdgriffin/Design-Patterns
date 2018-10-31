@@ -1,8 +1,7 @@
 package com.mgriffin.server;
 
+import com.mgriffin.client.OrderClient;
 import com.mgriffin.coffemat.*;
-import com.mgriffin.console.ConsoleOrderBuilder;
-import com.mgriffin.events.OrderObserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +14,10 @@ import java.util.List;
 
 public class OrderServer {
 
+    private static int PORT_NUMBER = 9090;
+
     public static void main(String[] args)  throws IOException {
-        ServerSocket listener = new ServerSocket(9090);
+        ServerSocket listener = new ServerSocket(PORT_NUMBER);
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
 
         for (int i = 0; i < 1; i++) {
@@ -32,45 +33,15 @@ public class OrderServer {
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-                ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(in, out);
-                CoffeeOrder coffeeOrder = orderBuilder.getCoffeeOrder();
-
-                out.println("Your order: \n" + coffeeOrder.toString());
-
-                // TODO: Refactor so casting is not necessary
-                ((OrderServiceImpl) orderService).addObserver(coffeeOrder, new OrderObserver() {
-                    @Override
-                    public void coffeeAdded() {
-                        out.println("Coffee Added");
-                    }
-
-                    @Override
-                    public void milkAdded() {
-                        out.println("Milk Added");
-                    }
-
-                    @Override
-                    public void condimentsAdded() {
-                        out.println("Condiments Added");
-                    }
-
-                    @Override
-                    public void orderCompleted() {
-                        out.println("Order Completed");
-                        try {
-                            socket.close();
-                        } catch (IOException exc) {
-                            out.println(exc);
-                        }
-                    }
-
-                    @Override
-                    public void queuePositionChanged(int currentPosition) {
-                        out.println("Current Position in Queue: " + currentPosition);
+                OrderClient orderClient = new OrderClient(orderService, in, out);
+                orderClient.processOrder();
+                orderClient.registerCompletedCallback(() -> {
+                    try {
+                        socket.close();
+                    } catch (IOException exc) {
+                        System.out.println(exc);
                     }
                 });
-
-                orderService.addOrder(coffeeOrder);
             }
         }
         finally {

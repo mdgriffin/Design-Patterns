@@ -1,5 +1,6 @@
 package com.mgriffin.driver;
 
+import com.mgriffin.client.OrderClient;
 import com.mgriffin.coffemat.*;
 import com.mgriffin.console.ConsoleOrderBuilder;
 import com.mgriffin.events.OrderObserver;
@@ -21,46 +22,11 @@ public class ConsoleDriver {
 
         OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
-        ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(new BufferedReader(new InputStreamReader(System.in)), new PrintWriter(System.out, true));
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(System.out, true);
 
-        try {
-            CoffeeOrder coffeeOrder = orderBuilder.getCoffeeOrder();
-
-            System.out.println("Your order: \n" + coffeeOrder.toString());
-
-            ((OrderServiceImpl) orderService).addObserver(coffeeOrder, new OrderObserver() {
-                @Override
-                public void coffeeAdded() {
-                    System.out.println("Coffee Added");
-                }
-
-                @Override
-                public void milkAdded() {
-                    System.out.println("Milk Added");
-                }
-
-                @Override
-                public void condimentsAdded() {
-                    System.out.println("Condiments Added");
-                }
-
-                @Override
-                public void orderCompleted() {
-                    System.out.println("Order Completed");
-                    System.exit(0);
-                }
-
-                @Override
-                public void queuePositionChanged(int currentPosition) {
-                    System.out.println("Current Position in Queue: " + currentPosition);
-                }
-            });
-
-            orderService.addOrder(coffeeOrder);
-        } catch (IOException exc) {
-            System.out.println("Unable to create order, please try again");
-            System.exit(0);
-        }
+        OrderClient orderClient = new OrderClient(orderService, in, out);
+        orderClient.processOrder();
 
     }
 
