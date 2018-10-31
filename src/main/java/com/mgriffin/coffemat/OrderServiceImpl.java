@@ -29,10 +29,7 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
         Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
         if (availableMachine.isPresent()) {
-            CoffeeMachine coffeeMachine = availableMachine.get();
-            Thread machineThread = new Thread(coffeeMachine);
-            coffeeMachine.start(order);
-            machineThread.start();
+            availableMachine.get().start(order);
         }
     }
 

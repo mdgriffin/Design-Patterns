@@ -11,27 +11,22 @@ public class CoffeeMachineImpl implements CoffeeMachine {
 
     List<MachineObserver> observers = new ArrayList();
 
-    private boolean running;
+    private Thread machineThread;
 
-    public CoffeeMachineImpl() {
-        running = true;
-    }
+    public CoffeeMachineImpl() {}
 
     @Override
     public boolean available () {
-        return coffeeOrder == null || coffeeOrder.getOrderState() == OrderStates.COMPLETED;
+        return (coffeeOrder == null || coffeeOrder.getOrderState() == OrderStates.COMPLETED) && (machineThread == null || !machineThread.isAlive());
     }
 
     @Override
     public void start (CoffeeOrder coffeeOrder) {
         if (available()) {
             this.coffeeOrder = coffeeOrder;
+            machineThread = new Thread(this);
+            machineThread.start();
         }
-    }
-
-    @Override
-    public void stop() {
-        running = false;
     }
 
     private void completed (CoffeeOrder coffeeOrder) {
@@ -63,7 +58,6 @@ public class CoffeeMachineImpl implements CoffeeMachine {
             } catch (InterruptedException exc) {
                 System.out.println("Exception");
                 System.out.println(exc);
-                running = false;
             }
         }
 }
