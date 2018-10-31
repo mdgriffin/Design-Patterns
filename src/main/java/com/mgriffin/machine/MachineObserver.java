@@ -1,7 +1,6 @@
-package com.mgriffin.events;
+package com.mgriffin.machine;
 
-import com.mgriffin.coffemat.CoffeeMachineImpl;
-import com.mgriffin.coffemat.CoffeeOrder;
+import com.mgriffin.order.CoffeeOrder;
 
 public interface MachineObserver {
     void coffeeAdded (CoffeeMachineImpl coffeeMachine, CoffeeOrder coffeeOrder);

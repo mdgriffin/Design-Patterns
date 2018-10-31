@@ -1,8 +1,8 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.order;
 
-import com.mgriffin.events.MachineObserver;
-import com.mgriffin.events.OrderObservable;
-import com.mgriffin.events.OrderObserver;
+import com.mgriffin.machine.CoffeeMachine;
+import com.mgriffin.machine.CoffeeMachineImpl;
+import com.mgriffin.machine.MachineObserver;
 
 import java.util.*;
 

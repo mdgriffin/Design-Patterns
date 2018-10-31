@@ -1,6 +1,6 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.machine;
 
-import com.mgriffin.events.MachineObservable;
+import com.mgriffin.order.CoffeeOrder;
 
 public interface CoffeeMachine extends Runnable, MachineObservable {
     boolean available ();

@@ -1,4 +1,4 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.order;
 
 public enum CoffeeType implements Billable {
     LATTE ("Latte", 0.007),

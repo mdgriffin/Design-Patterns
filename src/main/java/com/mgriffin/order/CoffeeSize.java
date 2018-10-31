@@ -1,4 +1,4 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.order;
 
 public enum CoffeeSize{
     SMALL ("Small", 250),

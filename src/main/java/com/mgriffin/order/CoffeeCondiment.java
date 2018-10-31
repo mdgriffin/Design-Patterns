@@ -1,4 +1,4 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.order;
 
 public enum CoffeeCondiment implements Billable {
     CREAM ("Cream", 0.2d),

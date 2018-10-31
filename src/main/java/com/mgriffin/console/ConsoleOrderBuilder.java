@@ -1,6 +1,6 @@
 package com.mgriffin.console;
 
-import com.mgriffin.coffemat.*;
+import com.mgriffin.order.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,6 +1,4 @@
-package com.mgriffin.events;
-
-import com.mgriffin.coffemat.CoffeeOrder;
+package com.mgriffin.order;
 
 public interface OrderObservable {
 

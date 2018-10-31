@@ -1,6 +1,5 @@
-package com.mgriffin.coffeemat;
+package com.mgriffin.order;
 
-import com.mgriffin.coffemat.*;
 import com.mgriffin.pricing.BlackFridayPrice;
 import org.junit.Test;
 

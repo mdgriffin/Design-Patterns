@@ -1,7 +1,9 @@
 package com.mgriffin.server;
 
 import com.mgriffin.client.OrderClient;
-import com.mgriffin.coffemat.*;
+import com.mgriffin.order.*;
+import com.mgriffin.machine.CoffeeMachine;
+import com.mgriffin.machine.CoffeeMachineImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;

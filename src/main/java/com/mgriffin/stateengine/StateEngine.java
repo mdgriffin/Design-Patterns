@@ -1,6 +1,5 @@
-package com.mgriffin.simplestateengine;
+package com.mgriffin.stateengine;
 
-import java.security.InvalidParameterException;
 import java.util.*;
 
 public class StateEngine implements StateChangeObservable {

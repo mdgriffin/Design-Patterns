@@ -1,4 +1,4 @@
-package com.mgriffin.events;
+package com.mgriffin.order;
 
 public interface OrderObserver {
     void coffeeAdded ();

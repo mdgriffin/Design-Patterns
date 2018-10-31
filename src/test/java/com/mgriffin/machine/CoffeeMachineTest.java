@@ -1,6 +1,8 @@
-package com.mgriffin.coffeemat;
+package com.mgriffin.machine;
 
-import com.mgriffin.coffemat.*;
+import com.mgriffin.order.*;
+import com.mgriffin.machine.CoffeeMachine;
+import com.mgriffin.machine.CoffeeMachineImpl;
 import org.junit.Before;
 import org.junit.Test;
 

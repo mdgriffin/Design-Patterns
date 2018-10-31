@@ -1,12 +1,11 @@
 package com.mgriffin.driver;
 
 import com.mgriffin.client.OrderClient;
-import com.mgriffin.coffemat.*;
-import com.mgriffin.console.ConsoleOrderBuilder;
-import com.mgriffin.events.OrderObserver;
+import com.mgriffin.order.*;
+import com.mgriffin.machine.CoffeeMachine;
+import com.mgriffin.machine.CoffeeMachineImpl;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.*;

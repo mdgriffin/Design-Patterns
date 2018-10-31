@@ -1,4 +1,4 @@
-package com.mgriffin.simplestateengine;
+package com.mgriffin.stateengine;
 
 public interface StateChangeObservable {
 

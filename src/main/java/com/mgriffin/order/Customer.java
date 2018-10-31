@@ -1,4 +1,4 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.order;
 
 public class Customer {
 

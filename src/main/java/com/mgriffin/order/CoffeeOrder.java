@@ -1,8 +1,8 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.order;
 
 import com.mgriffin.pricing.Discount;
 import com.mgriffin.pricing.RegularPrice;
-import com.mgriffin.simplestateengine.StateEngine;
+import com.mgriffin.stateengine.StateEngine;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

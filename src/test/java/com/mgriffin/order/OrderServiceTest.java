@@ -1,6 +1,6 @@
-package com.mgriffin.coffeemat;
+package com.mgriffin.order;
 
-import com.mgriffin.coffemat.*;
+import com.mgriffin.machine.CoffeeMachine;
 import org.junit.Test;
 
 import java.util.ArrayList;

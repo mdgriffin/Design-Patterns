@@ -1,11 +1,11 @@
 package com.mgriffin.client;
 
 import com.mgriffin.command.ProcessCompletedCallback;
-import com.mgriffin.coffemat.CoffeeOrder;
-import com.mgriffin.coffemat.OrderService;
-import com.mgriffin.coffemat.OrderServiceImpl;
+import com.mgriffin.order.CoffeeOrder;
+import com.mgriffin.order.OrderService;
+import com.mgriffin.order.OrderServiceImpl;
 import com.mgriffin.console.ConsoleOrderBuilder;
-import com.mgriffin.events.OrderObserver;
+import com.mgriffin.order.OrderObserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;

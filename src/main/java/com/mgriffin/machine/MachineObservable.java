@@ -1,4 +1,4 @@
-package com.mgriffin.events;
+package com.mgriffin.machine;
 
 public interface MachineObservable {
 

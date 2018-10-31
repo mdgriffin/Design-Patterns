@@ -1,6 +1,7 @@
-package com.mgriffin.coffemat;
+package com.mgriffin.machine;
 
-import com.mgriffin.events.MachineObserver;
+import com.mgriffin.order.CoffeeOrder;
+import com.mgriffin.order.OrderStates;
 
 import java.util.ArrayList;
 import java.util.List;
