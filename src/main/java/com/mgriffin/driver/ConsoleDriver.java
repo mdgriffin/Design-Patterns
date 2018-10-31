@@ -28,7 +28,6 @@ public class ConsoleDriver {
         System.out.println("Your order: \n" + coffeeOrder.toString());
 
         CoffeeOrder order = coffeeOrderBuilder.order();
-        orderService.addOrder(order);
 
         ((OrderServiceImpl) orderService).addObserver(order, new OrderObserver() {
             @Override
@@ -51,9 +50,14 @@ public class ConsoleDriver {
                 System.out.println("Order Completed");
                 System.exit(0);
             }
+
+            @Override
+            public void queuePositionChanged(int currentPosition) {
+                System.out.println("Current Position in Queue: " + currentPosition);
+            }
         });
 
-        System.out.println(orderService.toString());
+        orderService.addOrder(order);
     }
 
     private static CoffeeType getCoffeeType () {

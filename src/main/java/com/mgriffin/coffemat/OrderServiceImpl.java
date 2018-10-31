@@ -29,6 +29,7 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
         Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
         if (availableMachine.isPresent()) {
+            notifyQueuePosition();
             availableMachine.get().start(order);
         }
     }
@@ -67,8 +68,17 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
         }
 
         if (orders.size() > 0) {
+            notifyQueuePosition();
             coffeeMachine.start(orders.getFirst());
         }
+    }
+
+    public void notifyQueuePosition () {
+        observers.forEach((order, observerList) -> {
+            observerList.forEach(observer -> {
+                observer.queuePositionChanged(orders.indexOf(order));
+            });
+        });
     }
 
     @Override

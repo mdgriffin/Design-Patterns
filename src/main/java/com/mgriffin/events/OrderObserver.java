@@ -5,4 +5,5 @@ public interface OrderObserver {
     void milkAdded ();
     void condimentsAdded ();
     void orderCompleted ();
+    void queuePositionChanged (int currentPosition);
 }
