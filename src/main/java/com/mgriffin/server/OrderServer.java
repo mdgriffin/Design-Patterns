@@ -34,7 +34,10 @@ public class OrderServer {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
                 OrderClient orderClient = new OrderClient(orderService, in, out);
-                orderClient.processOrder();
+
+                Thread clientThread = new Thread(orderClient);
+                clientThread.start();
+
                 orderClient.registerCompletedCallback(() -> {
                     try {
                         socket.close();

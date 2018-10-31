@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class OrderClient {
+public class OrderClient implements Runnable {
 
     private OrderService orderService;
     private BufferedReader in;
@@ -24,7 +24,18 @@ public class OrderClient {
         this.out = out;
     }
 
-    public void processOrder () {
+    public void onProcessCompleted () {
+        if (processCompletedCallback != null) {
+            processCompletedCallback.onProcessCompleted();
+        }
+    }
+
+    public void registerCompletedCallback (ProcessCompletedCallback processCompletedCallback) {
+        this.processCompletedCallback = processCompletedCallback;
+    }
+
+    @Override
+    public void run() {
         try {
             ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(in, out);
             CoffeeOrder coffeeOrder = orderBuilder.getCoffeeOrder();
@@ -65,15 +76,4 @@ public class OrderClient {
             System.out.println(exc);
         }
     }
-
-    public void onProcessCompleted () {
-        if (processCompletedCallback != null) {
-            processCompletedCallback.onProcessCompleted();
-        }
-    }
-
-    public void registerCompletedCallback (ProcessCompletedCallback processCompletedCallback) {
-        this.processCompletedCallback = processCompletedCallback;
-    }
-
 }

@@ -26,8 +26,8 @@ public class ConsoleDriver {
         PrintWriter out = new PrintWriter(System.out, true);
 
         OrderClient orderClient = new OrderClient(orderService, in, out);
-        orderClient.processOrder();
-
+        Thread clientThread = new Thread(orderClient);
+        clientThread.start();
     }
 
 }
