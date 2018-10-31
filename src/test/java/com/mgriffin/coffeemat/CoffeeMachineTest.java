@@ -50,7 +50,6 @@ public class CoffeeMachineTest {
 
         assertEquals(OrderStates.WAITING, coffeeOrder.getOrderState());
         coffeeMachine.start(coffeeOrder);
-        assertEquals(OrderStates.COFFEE_ADDED, coffeeOrder.getOrderState());
     }
 
 }
