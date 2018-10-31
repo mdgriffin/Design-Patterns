@@ -17,13 +17,18 @@ public class CoffeeMachineImpl implements CoffeeMachine {
 
     @Override
     public boolean available () {
-        return (coffeeOrder == null || coffeeOrder.getOrderState() == OrderStates.COMPLETED) && (machineThread == null || !machineThread.isAlive());
+        return (coffeeOrder == null || coffeeOrder.getOrderState() == OrderStates.COMPLETED);
     }
 
     @Override
     public void start (CoffeeOrder coffeeOrder) {
         if (available()) {
             this.coffeeOrder = coffeeOrder;
+
+            if (machineThread != null && machineThread.isAlive()) {
+                machineThread.interrupt();
+            }
+
             machineThread = new Thread(this);
             machineThread.start();
         }
@@ -75,5 +80,5 @@ public class CoffeeMachineImpl implements CoffeeMachine {
                 System.out.println(exc);
             }
         }
-}
+    }
 }

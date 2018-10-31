@@ -13,7 +13,7 @@ public class ConsoleDriver {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
         CoffeeOrder.CoffeeOrderBuilder coffeeOrderBuilder = new CoffeeOrder.CoffeeOrderBuilder();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 1; i++) {
             coffeeMachines.add(new CoffeeMachineImpl());
         }
 
@@ -28,8 +28,12 @@ public class ConsoleDriver {
         System.out.println("Your order: \n" + coffeeOrder.toString());
 
         CoffeeOrder order = coffeeOrderBuilder.order();
+        CoffeeOrder order2 = coffeeOrderBuilder.order();
+        CoffeeOrder order3 = coffeeOrderBuilder.order();
+        CoffeeOrder order4 = coffeeOrderBuilder.order();
+        CoffeeOrder order5 = coffeeOrderBuilder.order();
 
-        ((OrderServiceImpl) orderService).addObserver(order, new OrderObserver() {
+        ((OrderServiceImpl) orderService).addObserver(order5, new OrderObserver() {
             @Override
             public void coffeeAdded() {
                 System.out.println("Coffee Added");
@@ -58,6 +62,10 @@ public class ConsoleDriver {
         });
 
         orderService.addOrder(order);
+        orderService.addOrder(order2);
+        orderService.addOrder(order3);
+        orderService.addOrder(order4);
+        orderService.addOrder(order5);
     }
 
     private static CoffeeType getCoffeeType () {
