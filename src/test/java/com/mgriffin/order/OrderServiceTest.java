@@ -18,14 +18,14 @@ public class OrderServiceTest {
 
     @Test
     public void whenInstantiatedCoffeeMaker_instanceInstantiated () {
-        List<CoffeeMachine> coffeeMachines = new ArrayList<>();
-        OrderService orderService = new OrderServiceImpl(coffeeMachines);
+        //List<CoffeeMachine> coffeeMachines = new ArrayList<>();
+        OrderService orderService = new OrderServiceImpl();
     }
 
     @Test
     public void whenAddingOrder_noExceptionThrown () {
-        List<CoffeeMachine> coffeeMachines = new ArrayList<>();
-        OrderService orderService = new OrderServiceImpl(coffeeMachines);
+        //List<CoffeeMachine> coffeeMachines = new ArrayList<>();
+        OrderService orderService = new OrderServiceImpl();
         orderService.addOrder(new CoffeeOrder.CoffeeOrderBuilder()
                 .setCustomer(new Customer("John Doe"))
                 .setType(CoffeeType.LATTE)
@@ -41,8 +41,8 @@ public class OrderServiceTest {
 
         when(mockCoffeeMachine.available()).thenReturn(true);
 
-        List<CoffeeMachine> coffeeMachines = Arrays.asList(mockCoffeeMachine);
-        OrderService orderService = new OrderServiceImpl(coffeeMachines);
+        //List<CoffeeMachine> coffeeMachines = Arrays.asList(mockCoffeeMachine);
+        OrderService orderService = new OrderServiceImpl();
         orderService.addOrder(new CoffeeOrder.CoffeeOrderBuilder()
                 .setCustomer(new Customer("John Doe"))
                 .setType(CoffeeType.LATTE)

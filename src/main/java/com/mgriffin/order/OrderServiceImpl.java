@@ -8,14 +8,21 @@ import java.util.*;
 
 public class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable {
 
-    private List<CoffeeMachine> coffeeMachines;
+    //private LinkedList<CoffeeOrder> orders = new LinkedList<>();
+    //private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
+    private static List<CoffeeMachine> coffeeMachines = Collections.synchronizedList(new ArrayList<>());
+    private static Map<CoffeeOrder, List<OrderObserver>> observers = Collections.synchronizedMap(new HashMap());
+    private static List<CoffeeOrder> orders = Collections.synchronizedList(new LinkedList<CoffeeOrder>());
 
-    private LinkedList<CoffeeOrder> orders = new LinkedList<>();
+    public OrderServiceImpl() {
+        //this.coffeeMachines =  Collections.synchronizedList(coffeeMachines);
 
-    private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
-
-    public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
-        this.coffeeMachines = coffeeMachines;
+        // TODO: Hack, need a better way to initialize the coffee machines, maybe a singleton
+        if (coffeeMachines.size() == 0) {
+            for (int i = 0; i < 1; i++) {
+                coffeeMachines.add(new CoffeeMachineImpl());
+            }
+        }
 
         coffeeMachines.forEach(coffeeMachine -> {
             coffeeMachine.addObserver(this);
@@ -69,7 +76,7 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
 
         if (orders.size() > 0) {
             notifyQueuePosition();
-            coffeeMachine.start(orders.getFirst());
+            coffeeMachine.start(orders.get(0));
         }
     }
 
@@ -103,4 +110,5 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
             observers.get(order).removeIf(listOrder -> listOrder.equals(order));
         }
     }
+
 }
