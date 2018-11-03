@@ -18,13 +18,6 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
     public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
         this.coffeeMachines = coffeeMachines;
 
-        // TODO: Hack, need a better way to initialize the coffee machines, maybe a singleton
-        if (coffeeMachines.size() == 0) {
-            for (int i = 0; i < 1; i++) {
-                coffeeMachines.add(new CoffeeMachineImpl());
-            }
-        }
-
         coffeeMachines.forEach(coffeeMachine -> {
             coffeeMachine.addObserver(this);
         });
