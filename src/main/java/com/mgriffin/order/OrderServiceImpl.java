@@ -8,14 +8,15 @@ import java.util.*;
 
 public class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable {
 
-    //private LinkedList<CoffeeOrder> orders = new LinkedList<>();
-    //private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
-    private static List<CoffeeMachine> coffeeMachines = Collections.synchronizedList(new ArrayList<>());
-    private static Map<CoffeeOrder, List<OrderObserver>> observers = Collections.synchronizedMap(new HashMap());
-    private static List<CoffeeOrder> orders = Collections.synchronizedList(new LinkedList<CoffeeOrder>());
+    private List<CoffeeMachine> coffeeMachines;
+    private LinkedList<CoffeeOrder> orders = new LinkedList<>();
+    private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
+    //private static List<CoffeeMachine> coffeeMachines = Collections.synchronizedList(new ArrayList<>());
+    //private static Map<CoffeeOrder, List<OrderObserver>> observers = Collections.synchronizedMap(new HashMap());
+    //private static List<CoffeeOrder> orders = Collections.synchronizedList(new LinkedList<CoffeeOrder>());
 
-    public OrderServiceImpl() {
-        //this.coffeeMachines =  Collections.synchronizedList(coffeeMachines);
+    public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
+        this.coffeeMachines = coffeeMachines;
 
         // TODO: Hack, need a better way to initialize the coffee machines, maybe a singleton
         if (coffeeMachines.size() == 0) {

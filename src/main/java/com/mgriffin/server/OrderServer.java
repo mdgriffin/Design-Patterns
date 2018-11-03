@@ -21,14 +21,12 @@ public class OrderServer {
     public static void main(String[] args)  throws IOException {
         ServerSocket listener = new ServerSocket(PORT_NUMBER);
 
-        /*
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
             coffeeMachines.add(new CoffeeMachineImpl());
         }
-        */
 
-        OrderService orderService = new OrderServiceImpl();
+        OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
         try {
             while (true) {

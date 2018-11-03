@@ -13,15 +13,13 @@ import java.util.*;
 public class ConsoleDriver {
 
     public static void main (String[] args) {
-        /*
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
 
         for (int i = 0; i < 1; i++) {
             coffeeMachines.add(new CoffeeMachineImpl());
         }
-        */
 
-        OrderService orderService = new OrderServiceImpl();
+        OrderService orderService = new OrderServiceImpl(coffeeMachines);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out, true);
