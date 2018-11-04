@@ -11,7 +11,8 @@ and then be notified when the coffee is ready for collection from one of the cof
     - The greeter will have to two decorator, stranger message and user message that could decorate the message with either the user's name or "guest" 
 - [x] Observer: Used extensively in the state engine, coffee machine and order service.
 - [ ] Singleton: Get single order service, so that all clients will be communicating with the one service
-- [x]  Strategy: Coffee bill calculator (normal strategy, discount strategy)
+- [x] Strategy: Coffee bill calculator (normal strategy, discount strategy)
+- [ ] Abstract Factory
 - [ ] Factory Method 
 - [x] Command: Registering a callback method when the order client finishing processing the order 
 - [ ] Adapter 
