@@ -5,20 +5,23 @@ and then be notified when the coffee is ready for collection from one of the cof
 
 ## Patterns
 
-- [x] State: Coffee making stages, implemented using the state engine
-- [ ] Decorator
-    - Create a message of the day class that welcomes the user to the system and displays a welcome message
-    - The greeter will have to two decorator, stranger message and user message that could decorate the message with either the user's name or "guest" 
-- [x] Observer: Used extensively in the state engine, coffee machine and order service.
-- [ ] Singleton: Get single order service, so that all clients will be communicating with the one service
-- [x] Strategy: Coffee bill calculator (normal strategy, discount strategy)
-- [ ] Abstract Factory
-- [ ] Factory Method 
-- [x] Command: Registering a callback method when the order client finishing processing the order 
-- [ ] Adapter 
-- [ ] Template Method 
-- [ ] Composite 
-
+- Tier 1 (14 marks each) - implement 2
+    - [ ] **Abstract Factory**
+    - [ ] **Decorator**
+        - Create a message of the day class that welcomes the user to the system and displays a welcome message
+        - The greeter will have to two decorator, stranger message and user message that could decorate the message with either the user's name or "guest"
+    - [x] **Command**: Registering a callback method when the order client finishing processing the order 
+    - [ ] **Iterator**:
+    - [ ] **Composite**:
+- Tier 2 (12 marks each) - implement 6
+    - [x] **State**: Coffee making stages, implemented using the state engine
+    - [x] **Observer**: Used extensively in the state engine, coffee machine and order service.
+    - [ ] **Singleton**: Get single order service, so that all clients will be communicating with the one service
+    - [x] **Strategy**: Coffee bill calculator (normal strategy, discount strategy)
+    - [ ] **Factory Method** 
+    - [ ] **Adapter**
+    - [ ] **Template Method** 
+    - [ ] **Proxy**
 
 ## ToDo
 
