@@ -1,12 +1,15 @@
 package com.mgriffin.order;
 
 import com.mgriffin.machine.CoffeeMachine;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -20,6 +23,7 @@ public class OrderServiceTest {
     public void whenInstantiatedCoffeeMaker_instanceInstantiated () {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
         OrderService orderService = new OrderServiceImpl(coffeeMachines);
+        assertNotNull(orderService);
     }
 
     @Test
