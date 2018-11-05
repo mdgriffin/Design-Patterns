@@ -1,6 +1,9 @@
 package com.mgriffin.client;
 
 import com.mgriffin.command.ProcessCompletedCallback;
+import com.mgriffin.console.CustomerMessageOfTheDay;
+import com.mgriffin.console.MessageOfTheDay;
+import com.mgriffin.console.SimpleMessageOfTheDay;
 import com.mgriffin.order.CoffeeOrder;
 import com.mgriffin.order.OrderService;
 import com.mgriffin.console.ConsoleOrderBuilder;
@@ -37,7 +40,11 @@ public class OrderClient implements Runnable {
     public void run() {
         try {
             ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(in, out);
+
             CoffeeOrder coffeeOrder = orderBuilder.getCoffeeOrder();
+
+            MessageOfTheDay messageOfTheDay = new CustomerMessageOfTheDay(new SimpleMessageOfTheDay(), coffeeOrder.getCustomer());
+            out.println(messageOfTheDay.getMessage());
 
             out.println("Your order: \n" + coffeeOrder.toString());
 

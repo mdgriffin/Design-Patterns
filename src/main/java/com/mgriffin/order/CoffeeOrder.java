@@ -62,6 +62,10 @@ public class CoffeeOrder implements Billable {
         return this.state.getCurrentState();
     }
 
+    public Customer getCustomer () {
+        return this.customer;
+    }
+
     public double getPrice () {
         return discount.calculate((coffeeType.getPrice() * coffeeSize.getNumMillimeters()) + condiments
             .stream().mapToDouble(condiment -> condiment.getPrice()).sum());
@@ -69,8 +73,7 @@ public class CoffeeOrder implements Billable {
 
     @Override
     public String toString () {
-        return "Thanks " + customer.getName() +
-                "\nYou ordered a " + coffeeSize + " " + coffeeType + " with " + condiments.stream().map(condiment -> condiment.getDisplayName() + ",").reduce("", String::concat);
+        return "You ordered a " + coffeeSize + " " + coffeeType + " with " + condiments.stream().map(condiment -> condiment.getDisplayName() + ",").reduce("", String::concat);
      }
 
     public static class CoffeeOrderBuilder {
