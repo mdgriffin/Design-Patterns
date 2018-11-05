@@ -27,14 +27,13 @@ and then be notified when the coffee is ready for collection from one of the cof
 
 ## ToDo
 
-- Customers need to order their coffee in a variety of ways like mobile application, web, in person
-    - Allow for these various scenarios
-    - Allow for multiple simultaneous connection to the coffee service
-- Implement sockets to allow multiple clients to connect to the application
+
+- [x] Implement sockets to allow multiple clients to connect to the application
 - Occasional discount are applied to the purchase price, for instance there is a 20% discount run during August
-    - The system should handle various discounts to be applied
-    - Discounts can be applied cumulatively
+    - [x] The system should handle various discounts to be applied
+    - [ ] Discounts can be applied cumulatively
 - Customers have credits that are used after each order
-- The coffee machine have supplies of milk and various other condiments, each order will depleted these supplies
-- Change state pattern implementation to avoid using the simple state engine
+- [ ] Change state pattern implementation to avoid using the simple state engine
     - The coffee making state to provide messages, like adding milk, sugar etc
+- [ ] Display price of order when ordering coffee through service
+- [ ] Display Message of the day
