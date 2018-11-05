@@ -6,7 +6,7 @@ import com.mgriffin.machine.MachineObserver;
 
 import java.util.*;
 
-public class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable {
+class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable {
 
     private List<CoffeeMachine> coffeeMachines;
     private LinkedList<CoffeeOrder> orders = new LinkedList<>();

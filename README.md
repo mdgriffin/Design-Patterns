@@ -18,7 +18,9 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] **Observer**: Used extensively in the state engine, coffee machine and order service.
     - [ ] **Singleton**: Get single order service, so that all clients will be communicating with the one service
     - [x] **Strategy**: Coffee bill calculator (normal strategy, discount strategy)
-    - [ ] **Factory Method** 
+    - [x] **Factory Method**: Order Service cannot be instantiated outside order package, access is though the 
+    `SingleMachineOrderService` and `MultiMachineOrderService` classes which implement the OrderFactory interface.
+    In this way it matches the intent **Define an interface for creating an object, but let subclasses decide which class to instantiate.**
     - [ ] **Adapter**
     - [ ] **Template Method** 
     - [ ] **Proxy**

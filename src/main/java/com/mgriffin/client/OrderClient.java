@@ -3,7 +3,6 @@ package com.mgriffin.client;
 import com.mgriffin.command.ProcessCompletedCallback;
 import com.mgriffin.order.CoffeeOrder;
 import com.mgriffin.order.OrderService;
-import com.mgriffin.order.OrderServiceImpl;
 import com.mgriffin.console.ConsoleOrderBuilder;
 import com.mgriffin.order.OrderObserver;
 
@@ -42,8 +41,7 @@ public class OrderClient implements Runnable {
 
             out.println("Your order: \n" + coffeeOrder.toString());
 
-            // TODO: Refactor so casting is not necessary
-            ((OrderServiceImpl) orderService).addObserver(coffeeOrder, new OrderObserver() {
+            orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override
                 public void coffeeAdded() {
                     out.println("Coffee Added");

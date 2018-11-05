@@ -99,7 +99,6 @@ public class ConsoleOrderBuilder {
                     out.println("Invalid option please select again (1 - " + maxVal + "): ");
                 }
             } catch (IOException exc) {
-                // TODO: Handle Better
                 out.println(exc);
             }
         }
