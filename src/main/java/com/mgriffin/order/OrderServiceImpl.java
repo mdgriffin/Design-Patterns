@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
         observers.forEach((order, observerList) -> {
             observerList.forEach(observer -> {
                 int queuePosition = orders.indexOf(order);
-                if (queuePosition != -1) {
+                if (queuePosition != -1 && queuePosition != 0) {
                     observer.queuePositionChanged(queuePosition);
                 }
             });
