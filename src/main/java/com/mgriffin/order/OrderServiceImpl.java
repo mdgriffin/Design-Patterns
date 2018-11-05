@@ -11,9 +11,6 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
     private List<CoffeeMachine> coffeeMachines;
     private LinkedList<CoffeeOrder> orders = new LinkedList<>();
     private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
-    //private static List<CoffeeMachine> coffeeMachines = Collections.synchronizedList(new ArrayList<>());
-    //private static Map<CoffeeOrder, List<OrderObserver>> observers = Collections.synchronizedMap(new HashMap());
-    //private static List<CoffeeOrder> orders = Collections.synchronizedList(new LinkedList<CoffeeOrder>());
 
     public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
         this.coffeeMachines = coffeeMachines;
@@ -26,11 +23,11 @@ public class OrderServiceImpl implements OrderService, MachineObserver, OrderObs
     @Override
     public void addOrder(CoffeeOrder order) {
         orders.add(order);
+        notifyQueuePosition();
 
         Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
         if (availableMachine.isPresent()) {
-            notifyQueuePosition();
             availableMachine.get().start(order);
         }
     }

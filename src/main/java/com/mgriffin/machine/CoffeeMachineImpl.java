@@ -70,11 +70,11 @@ public class CoffeeMachineImpl implements CoffeeMachine {
         if (!available()) {
             try {
                 addCoffee();
-                Thread.sleep(1000);
+                Thread.sleep(5000);
                 addMilk();
-                Thread.sleep(1000);
+                Thread.sleep(5000);
                 addCondiments();
-                Thread.sleep(1000);
+                Thread.sleep(5000);
                 completeOrder();
             } catch (InterruptedException exc) {
                 System.out.println("Exception");

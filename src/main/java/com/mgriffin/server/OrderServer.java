@@ -22,7 +22,7 @@ public class OrderServer {
         ServerSocket listener = new ServerSocket(PORT_NUMBER);
 
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             coffeeMachines.add(new CoffeeMachineImpl());
         }
 
@@ -31,6 +31,7 @@ public class OrderServer {
         try {
             while (true) {
                 Socket socket = listener.accept();
+                System.out.println("New Client Connected");
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
