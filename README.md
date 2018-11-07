@@ -21,7 +21,7 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] **Factory Method**: Order Service cannot be instantiated outside order package, access is though the 
     `SingleMachineOrderService` and `MultiMachineOrderService` classes which implement the OrderFactory interface.
     In this way it matches the intent **Define an interface for creating an object, but let subclasses decide which class to instantiate.**
-    - [ ] **Adapter**
+    - [ ] **Adapter**: Could add an adapter that provides a different API for some class, would also need a usage
     - [ ] **Template Method** 
     - [ ] **Proxy**
 
