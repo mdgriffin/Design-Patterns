@@ -11,7 +11,8 @@ and then be notified when the coffee is ready for collection from one of the cof
         - Create a message of the day class that welcomes the user to the system and displays a welcome message
         - The greeter will have to two decorator, stranger message and user message that could decorate the message with either the user's name or "guest"
     - [x] **Command**: Registering a callback method when the order client finishing processing the order 
-    - [ ] **Iterator**:
+    - [ ] **Iterator**: Could implement an order iterator to loop over the orders
+        - Could also make a note on the use of streams and lambdas as opposed to iterators
     - [ ] **Composite**:
 - Tier 2 (12 marks each) - implement 6
     - [x] **State**: Coffee making stages, implemented using the state engine
@@ -21,7 +22,7 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] **Factory Method**: Order Service cannot be instantiated outside order package, access is though the 
     `SingleMachineOrderService` and `MultiMachineOrderService` classes which implement the OrderFactory interface.
     In this way it matches the intent **Define an interface for creating an object, but let subclasses decide which class to instantiate.**
-    - [ ] **Adapter**: Could add an adapter that provides a different API for some class, would also need a usage
+    - [x] **Adapter**: The adapting of the events from coffee machine to order service and then on to the clients
     - [ ] **Template Method** 
     - [ ] **Proxy**
 
