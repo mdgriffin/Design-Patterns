@@ -14,7 +14,7 @@ and then be notified when the coffee is ready for collection from one of the cof
 - Tier 2 (12 marks each) - implement 6
     - [x] **State**: Coffee making stages, implemented using the state engine
     - [x] **Observer**: Used extensively in the state engine, coffee machine and order service.
-    - [ ] **Singleton**:
+    - [ ] **Singleton**: OrderLogger keeps track of orders globally
     - [x] **Strategy**: 
         - Coffee bill calculator (normal strategy, discount strategy)
         - Could add a display strategy that changed the way the order is displayed, e.g. as a table

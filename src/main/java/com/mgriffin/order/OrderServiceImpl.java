@@ -3,6 +3,7 @@ package com.mgriffin.order;
 import com.mgriffin.machine.CoffeeMachine;
 import com.mgriffin.machine.CoffeeMachineImpl;
 import com.mgriffin.machine.MachineObserver;
+import com.mgriffin.stats.OrderLogger;
 
 import java.util.*;
 
@@ -11,6 +12,7 @@ class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable
     private List<CoffeeMachine> coffeeMachines;
     private LinkedList<CoffeeOrder> orders = new LinkedList<>();
     private Map<CoffeeOrder, List<OrderObserver>> observers = new HashMap();
+    private OrderLogger orderLogger = OrderLogger.INSTANCE;
 
     public OrderServiceImpl(List<CoffeeMachine> coffeeMachines) {
         this.coffeeMachines = coffeeMachines;
@@ -24,6 +26,7 @@ class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable
     public void addOrder(CoffeeOrder order) {
         orders.add(order);
         notifyQueuePosition();
+        orderLogger.logOrder(order);
 
         Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
