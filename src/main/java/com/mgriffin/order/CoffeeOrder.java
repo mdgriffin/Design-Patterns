@@ -1,7 +1,8 @@
 package com.mgriffin.order;
 
 import com.mgriffin.pricing.Discount;
-import com.mgriffin.pricing.RegularPrice;
+import com.mgriffin.pricing.DiscountFactory;
+import com.mgriffin.pricing.TimeBasedDiscountFactory;
 import com.mgriffin.stateengine.StateEngine;
 
 import java.util.ArrayList;
@@ -126,7 +127,8 @@ public class CoffeeOrder implements Billable {
             }
 
             if (discount == null) {
-                discount = new RegularPrice();
+                DiscountFactory discountFactory = new TimeBasedDiscountFactory();
+                discount = discountFactory.getDiscount();
             }
 
             return new CoffeeOrder (discount, customer, coffeeType, coffeeSize, condiments);

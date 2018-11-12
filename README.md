@@ -18,9 +18,9 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] **Strategy**: 
         - Coffee bill calculator (normal strategy, discount strategy)
         - Could add a display strategy that changed the way the order is displayed, e.g. as a table
-    - [x] **Factory Method**: Order Service cannot be instantiated outside order package, access is though the 
-    `SingleMachineOrderService` and `MultiMachineOrderService` classes which implement the OrderFactory interface.
-    In this way it matches the intent **Define an interface for creating an object, but let subclasses decide which class to instantiate.**
+    - [x] **Factory Method**: 
+        - Order Service cannot be instantiated outside order package, access is though the `SingleMachineOrderService` and `MultiMachineOrderService` classes which implement the OrderFactory interface. In this way it matches the intent **Define an interface for creating an object, but let subclasses decide which class to instantiate.**
+        - DiscountFactory implemented by `TimeBasedDiscount` gets the current discount depending on the time of day.
     - [x] **Adapter**: The adapting of the events from coffee machine to order service and then on to the clients
     - [ ] **Template Method**
     - [ ] **Proxy**
@@ -32,7 +32,5 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] The system should handle various discounts to be applied
     - [ ] Discounts can be applied cumulatively
 - Customers have credits that are used after each order
-- [ ] Change state pattern implementation to avoid using the simple state engine
-    - The coffee making state to provide messages, like adding milk, sugar etc
 - [x] Display price of order when ordering coffee through service
-- [ ] Display Message of the day
+- [x] Display Message of the day
