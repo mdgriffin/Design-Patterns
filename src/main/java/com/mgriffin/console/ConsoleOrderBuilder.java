@@ -69,12 +69,12 @@ public class ConsoleOrderBuilder {
     private Customer getCustomer () throws IOException {
         String customerName = "";
 
-        out.print("Please enter customer name: ");
+        out.println("Please enter customer name: ");
 
         customerName = in.readLine();
 
         while (customerName.length() == 0) {
-            out.print("Please enter a valid customer name: ");
+            out.println("Please enter a valid customer name: ");
             customerName = in.readLine();
         }
 

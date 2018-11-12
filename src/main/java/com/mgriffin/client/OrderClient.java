@@ -46,7 +46,7 @@ public class OrderClient implements Runnable {
             MessageOfTheDay messageOfTheDay = new CustomerMessageOfTheDay(new SimpleMessageOfTheDay(), coffeeOrder.getCustomer());
             out.println(messageOfTheDay.getMessage());
 
-            out.println("Your order: \n" + coffeeOrder.toString());
+            out.println(coffeeOrder.toString());
 
             orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override
