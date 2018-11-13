@@ -9,8 +9,6 @@ import static org.junit.Assert.assertNotNull;
 
 public class OrderLoggerTest {
 
-    // ToDo: Add tests that only one order logger can be created
-
     @Test
     public void salesTotalIsZero_whenNoOrdersAdded () {
         OrderLogger logger = OrderLogger.INSTANCE;

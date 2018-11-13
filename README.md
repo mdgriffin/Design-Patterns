@@ -24,13 +24,15 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] **Adapter**: The adapting of the events from coffee machine to order service and then on to the clients
     - [ ] **Template Method**
     - [ ] **Proxy**
+- Other Patterns
+    - [x] **Facade**: The Order Service is a facade into the coffee machines
+    - [x] **Builder**: Builder pattern used by the state machine and by CoffeeOrder
 
 ## ToDo
 
 - [x] Implement sockets to allow multiple clients to connect to the application
 - Occasional discount are applied to the purchase price, for instance there is a 20% discount run during August
     - [x] The system should handle various discounts to be applied
-    - [ ] Discounts can be applied cumulatively
 - Customers have credits that are used after each order
 - [x] Display price of order when ordering coffee through service
 - [x] Display Message of the day

@@ -67,6 +67,10 @@ public class CoffeeOrder implements Billable {
         return this.customer;
     }
 
+    public List<CoffeeCondiment> getCondiments () {
+        return condiments;
+    }
+
     public double getPrice () {
         return discount.calculate((coffeeType.getPrice() * coffeeSize.getNumMillimeters()) + condiments
             .stream().mapToDouble(condiment -> condiment.getPrice()).sum());

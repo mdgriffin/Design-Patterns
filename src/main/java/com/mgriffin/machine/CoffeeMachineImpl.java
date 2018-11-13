@@ -73,7 +73,9 @@ public class CoffeeMachineImpl implements CoffeeMachine {
                 Thread.sleep(5000);
                 addMilk();
                 Thread.sleep(5000);
-                addCondiments();
+                if  (coffeeOrder.getCondiments().size() > 0) {
+                    addCondiments();
+                }
                 Thread.sleep(5000);
                 completeOrder();
             } catch (InterruptedException exc) {
