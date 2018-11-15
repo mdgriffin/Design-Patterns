@@ -17,8 +17,8 @@ public class OrderServer {
     public static void main(String[] args)  throws IOException {
         ServerSocket listener = new ServerSocket(PORT_NUMBER);
 
-        OrderFactory factory = new SingleMachineOrderService();
-        OrderService orderService = factory.getOrderService();
+        OrderServiceFactory factory = new SingleMachineOrderServiceFactory();
+        OrderService orderService = factory.createOrderService();
 
         try {
             while (true) {
