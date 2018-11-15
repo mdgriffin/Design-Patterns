@@ -36,6 +36,8 @@ and then be notified when the coffee is ready for collection from one of the cof
 
 ## ToDo
 
+- [ ] Create overall class diagram
+- [ ] Create Diagram for each pattern
 - [x] Implement sockets to allow multiple clients to connect to the application
 - Occasional discount are applied to the purchase price, for instance there is a 20% discount run during August
     - [x] The system should handle various discounts to be applied
