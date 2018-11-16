@@ -16,7 +16,7 @@ public class OrderLoggerTest {
     public void addingOrder_increasesTotalSales () {
         OrderLogger logger = OrderLogger.INSTANCE;
 
-        assertEquals(0d, logger.getTotalSales(), 0d);
+        double initialTotalSales = logger.getTotalSales();
 
         CoffeeOrder coffeeOrder = new CoffeeOrder.CoffeeOrderBuilder()
             .setCustomer(new Customer(""))
@@ -31,9 +31,11 @@ public class OrderLoggerTest {
         logger.logOrder(coffeeOrder);
 
         assertTrue(coffeeOrder.getPrice() > 0);
-        assertEquals(3.7d, coffeeOrder.getPrice(), 0.01d);
 
-        assertEquals(3.7d, logger.getTotalSales(), 0.01d);
+        double expectedTotalSales = initialTotalSales + coffeeOrder.getPrice();
+
+        assertTrue(expectedTotalSales > initialTotalSales);
+        assertEquals(expectedTotalSales, logger.getTotalSales(), 0.01d);
     }
 
 }
