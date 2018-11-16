@@ -1,0 +1,31 @@
+@startuml
+
+interface Discount {
+    calculate(amount:double):double
+}
+
+class CoffeeOrder
+
+class CoffeeOrderBuilder {
+    order():CoffeeOrder
+}
+
+interface DiscountFactory {
+    getDiscount():Discount
+}
+
+class TimeBasedDiscountFactory
+
+class RegularPrice
+
+class MorningMadnessPrice
+
+RegularPrice ..|> Discount
+MorningMadnessPrice ..|> Discount
+TimeBasedDiscountFactory ..|> DiscountFactory
+CoffeeOrder +-- CoffeeOrderBuilder
+CoffeeOrderBuilder -- DiscountFactory
+DiscountFactory --> Discount
+CoffeeOrderBuilder *-- TimeBasedDiscountFactory
+
+@enduml
