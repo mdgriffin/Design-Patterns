@@ -1,6 +1,7 @@
 package com.mgriffin.client;
 
-import com.mgriffin.command.ProcessCompletedCallback;
+import com.mgriffin.command.CloseConnectionCommand;
+import com.mgriffin.command.Command;
 import com.mgriffin.console.CustomerMessageOfTheDay;
 import com.mgriffin.console.MessageOfTheDay;
 import com.mgriffin.console.SimpleMessageOfTheDay;
@@ -8,32 +9,28 @@ import com.mgriffin.order.CoffeeOrder;
 import com.mgriffin.order.OrderService;
 import com.mgriffin.console.ConsoleOrderBuilder;
 import com.mgriffin.order.OrderObserver;
+import com.mgriffin.server.ClientConnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class OrderClient implements Runnable {
-
     private OrderService orderService;
     private BufferedReader in;
     private PrintWriter out;
-    private ProcessCompletedCallback processCompletedCallback;
+    private ClientConnection connection;
 
-    public OrderClient (OrderService orderService, BufferedReader in, PrintWriter out) {
+    public OrderClient (OrderService orderService, ClientConnection connection, BufferedReader in, PrintWriter out) {
         this.orderService = orderService;
         this.in = in;
         this.out = out;
+        this.connection = connection;
     }
 
     public void onProcessCompleted () {
-        if (processCompletedCallback != null) {
-            processCompletedCallback.onProcessCompleted();
-        }
-    }
-
-    public void registerCompletedCallback (ProcessCompletedCallback processCompletedCallback) {
-        this.processCompletedCallback = processCompletedCallback;
+        Command closeCommand = new CloseConnectionCommand(connection);
+        closeCommand.execute();
     }
 
     @Override

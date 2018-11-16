@@ -22,24 +22,8 @@ public class OrderServer {
 
         try {
             while (true) {
-                Socket socket = listener.accept();
-                System.out.println("New Client Connected");
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-                OrderClient orderClient = new OrderClient(orderService, in, out);
-
-                Thread clientThread = new Thread(orderClient);
-                clientThread.start();
-
-                orderClient.registerCompletedCallback(() -> {
-                    try {
-                        socket.close();
-                    } catch (IOException exc) {
-                        System.out.println(exc);
-                    }
-                });
+                ClientConnection connection = new ClientConnectionImpl(listener, orderService);
+                connection.open();
             }
         }
         finally {
