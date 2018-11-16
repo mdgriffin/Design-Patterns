@@ -1,5 +1,7 @@
 package com.mgriffin.client;
 
+import com.mgriffin.billing.ReceiptPrinter;
+import com.mgriffin.billing.CoffeeExpressReceiptPrinter;
 import com.mgriffin.command.Command;
 import com.mgriffin.console.CustomerMessageOfTheDay;
 import com.mgriffin.console.MessageOfTheDay;
@@ -8,7 +10,6 @@ import com.mgriffin.order.CoffeeOrder;
 import com.mgriffin.order.OrderService;
 import com.mgriffin.console.ConsoleOrderBuilder;
 import com.mgriffin.order.OrderObserver;
-import com.mgriffin.server.ClientConnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,7 +47,9 @@ public class OrderClient implements Runnable {
             MessageOfTheDay messageOfTheDay = new CustomerMessageOfTheDay(new SimpleMessageOfTheDay(), coffeeOrder.getCustomer());
             out.println(messageOfTheDay.getMessage());
 
-            out.println(coffeeOrder.toString());
+            ReceiptPrinter receiptPrinter = new CoffeeExpressReceiptPrinter(coffeeOrder);
+
+            out.println(receiptPrinter.print());
 
             orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override

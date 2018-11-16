@@ -76,9 +76,17 @@ public class CoffeeOrder implements Billable {
             .stream().mapToDouble(condiment -> condiment.getPrice()).sum());
     }
 
+    public CoffeeSize getCoffeeSize () {
+        return coffeeSize;
+    }
+
+    public CoffeeType getCoffeeType () {
+        return coffeeType;
+    }
+
     @Override
     public String toString () {
-        return "=== Your Order === \n" +
+        return "=== Coffee Order === \n" +
                 coffeeSize + " " + coffeeType + " with " +
                 condiments.stream().map(condiment -> condiment.getDisplayName() + ",").reduce("", String::concat) +
                 "\nPrice: " + getPrice();
