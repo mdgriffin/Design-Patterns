@@ -1,0 +1,30 @@
+@startuml
+note "Receiver and Client" as N1
+note "Invoker" as N2
+
+interface Command {
+    void execute()
+}
+
+class OrderClient {
+    registerCompletedCommand (ProcessCompletedCallback):void
+    onProcessCompleted ():void
+}
+
+class Anonymous <<lambda>>
+
+interface ClientConnection {
+    open():void
+    close():void
+}
+
+class ClientConnectionImpl
+
+ClientConnectionImpl ..|> ClientConnection
+OrderClient --> "0..1" Command
+Anonymous ..|> Command
+Anonymous --* ClientConnectionImpl
+ClientConnectionImpl --* OrderClient
+N1 .. ClientConnectionImpl
+N2 .. OrderClient
+@enduml

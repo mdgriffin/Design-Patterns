@@ -1,0 +1,28 @@
+@startuml
+note "Receiver" as N1
+note "Invoker and Client" as N3
+
+interface Command {
+    void execute()
+}
+
+class CloseConnectionCommand
+
+class OpenConnectionCommand
+
+class OrderClient
+
+CloseConnectionCommand ..|> Command
+OpenConnectionCommand ..|> Command
+
+interface ClientConnection
+
+class ClientConnectionImpl
+ClientConnectionImpl ..|> ClientConnection
+ClientConnection --* OrderClient
+
+N1 ... ClientConnection
+N3 ... OrderClient
+
+
+@enduml
