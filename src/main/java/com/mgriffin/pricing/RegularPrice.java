@@ -1,6 +1,6 @@
 package com.mgriffin.pricing;
 
-class RegularPrice implements Discount {
+public class RegularPrice implements Discount {
 
     @Override
     public double calculate(double amount) {
