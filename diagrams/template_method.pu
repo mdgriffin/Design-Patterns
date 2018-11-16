@@ -1,0 +1,14 @@
+@startuml
+
+abstract class ReceiptPrinter
+
+
+class CoffeeExpressReceiptPrinter
+
+class OrderClient
+
+CoffeeExpressReceiptPrinter --|> ReceiptPrinter
+OrderClient --* CoffeeExpressReceiptPrinter
+
+
+@enduml
