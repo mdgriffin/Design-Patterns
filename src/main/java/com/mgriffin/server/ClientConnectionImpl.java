@@ -44,7 +44,8 @@ public class ClientConnectionImpl implements  ClientConnection {
         }
     }
 
-    private void close() {
+    @Override
+    public void close() {
         try {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
