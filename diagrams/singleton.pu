@@ -1,0 +1,17 @@
+@startuml
+
+enum OrderLogger {
+    -List orders
+    INSTANCE
+    addOrder(CoffeeOrder)
+}
+
+interface OrderService
+
+class OrderServiceImpl
+
+OrderService ..|> OrderServiceImpl
+
+OrderServiceImpl -->  OrderLogger: <<uses>>
+
+@enduml
