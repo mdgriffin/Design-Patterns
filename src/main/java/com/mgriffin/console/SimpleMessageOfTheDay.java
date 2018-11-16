@@ -2,10 +2,7 @@ package com.mgriffin.console;
 
 public class SimpleMessageOfTheDay implements MessageOfTheDay {
 
-    public SimpleMessageOfTheDay () {
-
-    }
-
+    public SimpleMessageOfTheDay () {}
 
     @Override
     public String getMessage() {

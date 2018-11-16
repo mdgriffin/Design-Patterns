@@ -1,4 +1,7 @@
 @startuml
+note "Component" as N1
+note "ConcreteComponent" as N2
+note "Decorated with Customer" as N3
 
 interface MessageOfTheDay {
     String getMessage()
@@ -11,4 +14,7 @@ class CustomerMessageOfTheDay
 SimpleMessageOfTheDay ..|> MessageOfTheDay
 CustomerMessageOfTheDay ..|> MessageOfTheDay
 
+N1 .. MessageOfTheDay
+N2 .. SimpleMessageOfTheDay
+N3 .. CustomerMessageOfTheDay
 @enduml
