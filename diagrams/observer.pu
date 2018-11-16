@@ -1,0 +1,23 @@
+@startuml
+
+interface MachineObservable
+
+interface MachineObserver
+
+interface CoffeeMachine
+
+class CoffeeMachineImpl
+
+interface OrderService
+
+class OrderServiceImpl
+
+CoffeeMachine --|> MachineObservable
+CoffeeMachineImpl ..|> CoffeeMachine
+OrderService ..|> OrderServiceImpl
+OrderService ..|> MachineObserver
+
+OrderService ..* CoffeeMachine
+MachineObservable o.. "0..*" MachineObserver
+
+@enduml
