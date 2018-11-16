@@ -1,6 +1,5 @@
 package com.mgriffin.client;
 
-import com.mgriffin.command.CloseConnectionCommand;
 import com.mgriffin.command.Command;
 import com.mgriffin.console.CustomerMessageOfTheDay;
 import com.mgriffin.console.MessageOfTheDay;
@@ -19,18 +18,22 @@ public class OrderClient implements Runnable {
     private OrderService orderService;
     private BufferedReader in;
     private PrintWriter out;
-    private ClientConnection connection;
+    private Command processCompletedCommand;
 
-    public OrderClient (OrderService orderService, ClientConnection connection, BufferedReader in, PrintWriter out) {
+    public OrderClient (OrderService orderService, BufferedReader in, PrintWriter out) {
         this.orderService = orderService;
         this.in = in;
         this.out = out;
-        this.connection = connection;
     }
 
     public void onProcessCompleted () {
-        Command closeCommand = new CloseConnectionCommand(connection);
-        closeCommand.execute();
+        if (this.processCompletedCommand != null) {
+            processCompletedCommand.execute();
+        }
+    }
+
+    public void registerCompletedCommand (Command processCompletedCommand) {
+        this.processCompletedCommand = processCompletedCommand;
     }
 
     @Override

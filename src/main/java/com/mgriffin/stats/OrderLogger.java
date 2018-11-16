@@ -10,11 +10,7 @@ public enum OrderLogger {
 
     private List<CoffeeOrder> orders = new ArrayList<>();
 
-    private static OrderLogger instance = null;
-
-    OrderLogger () {
-
-    }
+    OrderLogger () {}
 
     public void logOrder (CoffeeOrder coffeeOrder) {
         this.orders.add(coffeeOrder);

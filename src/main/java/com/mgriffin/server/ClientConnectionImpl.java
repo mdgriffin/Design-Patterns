@@ -30,7 +30,11 @@ public class ClientConnectionImpl implements  ClientConnection {
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-                OrderClient orderClient = new OrderClient(orderService, this, in, out);
+                OrderClient orderClient = new OrderClient(orderService, in, out);
+
+                orderClient.registerCompletedCommand(() -> {
+                    ClientConnectionImpl.this.close();
+                });
 
                 Thread clientThread = new Thread(orderClient);
                 clientThread.start();
@@ -40,8 +44,7 @@ public class ClientConnectionImpl implements  ClientConnection {
         }
     }
 
-    @Override
-    public void close() {
+    private void close() {
         try {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
