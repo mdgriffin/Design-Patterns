@@ -1,0 +1,21 @@
+@startuml
+
+interface OrderServiceFactory {
+    createOrderService():OrderService
+}
+
+class SingleMachineOrderServiceFactory
+class MultiMachineOrderServiceFactory
+
+SingleMachineOrderServiceFactory ..|> OrderServiceFactory
+MultiMachineOrderServiceFactory ..|> OrderServiceFactory
+
+interface OrderService
+class OrderServiceImpl
+
+OrderServiceImpl ..|> OrderService
+
+MultiMachineOrderServiceFactory --> OrderServiceImpl
+SingleMachineOrderServiceFactory --> OrderServiceImpl
+
+@enduml
