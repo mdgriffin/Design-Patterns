@@ -4,22 +4,24 @@ import com.mgriffin.order.CoffeeOrder;
 
 public class CoffeeExpressReceiptPrinter extends ReceiptPrinter {
 
+    private CoffeeOrder coffeeOrder;
+
+    private CoffeeExpressReceiptPrinter () {}
+
     public CoffeeExpressReceiptPrinter (CoffeeOrder coffeeOrder) {
-        super(coffeeOrder);
+        this.coffeeOrder = coffeeOrder;
     }
 
     @Override
-    protected String printLogo() {
-        return lineSeperator +
-                " __   __   ___  ___  ___  ___     ___      __   __   ___  __   __     " + lineSeperator +
-                "/  ` /  \\ |__  |__  |__  |__     |__  \\_/ |__) |__) |__  /__` /__`    " + lineSeperator +
-                "\\__, \\__/ |    |    |___ |___    |___ / \\ |    |  \\ |___ .__/ .__/    " + lineSeperator+
-                "                                                                      " + lineSeperator;
+    protected String printOrder () {
+        return lineSeperator + coffeeOrder.getCoffeeSize() + " " + coffeeOrder.getCoffeeType() + " with " +
+                coffeeOrder.getCondiments().stream().map(condiment -> condiment.getDisplayName() + ",").reduce("", String::concat);
     }
 
-    @Override
-    protected String printFooter() {
-        return lineSeperator + "Thank You For Your Custom";
+    protected String printPrice () {
+        return lineSeperator +"Price: " + coffeeOrder.getPrice();
     }
+
+
 
 }

@@ -20,6 +20,7 @@ public class OrderClient implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private Command processCompletedCommand;
+    protected static String lineSeperator = System.getProperty("line.separator");
 
     public OrderClient (OrderService orderService, BufferedReader in, PrintWriter out) {
         this.orderService = orderService;
@@ -40,21 +41,21 @@ public class OrderClient implements Runnable {
     @Override
     public void run() {
         try {
-            ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(in, out);
+            out.print(getWelcomeMessage());
 
+            ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(in, out);
             CoffeeOrder coffeeOrder = orderBuilder.getCoffeeOrder();
 
             MessageOfTheDay messageOfTheDay = new CustomerMessageOfTheDay(new SimpleMessageOfTheDay(), coffeeOrder.getCustomer());
             out.println(messageOfTheDay.getMessage());
 
             ReceiptPrinter receiptPrinter = new CoffeeExpressReceiptPrinter(coffeeOrder);
-
             out.println(receiptPrinter.print());
 
             orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override
                 public void coffeeAdded() {
-                    out.println("Coffee Added");
+                    out.println(lineSeperator +"Coffee Added");
                 }
 
                 @Override
@@ -83,5 +84,13 @@ public class OrderClient implements Runnable {
         } catch (IOException exc) {
             System.out.println(exc);
         }
+    }
+
+    private static String getWelcomeMessage () {
+        return "Welcome To" + lineSeperator +
+                " __   __   ___  ___  ___  ___     ___      __   __   ___  __   __     " + lineSeperator +
+                "/  ` /  \\ |__  |__  |__  |__     |__  \\_/ |__) |__) |__  /__` /__`    " + lineSeperator +
+                "\\__, \\__/ |    |    |___ |___    |___ / \\ |    |  \\ |___ .__/ .__/    " + lineSeperator+
+                "                                                                      " + lineSeperator;
     }
 }
