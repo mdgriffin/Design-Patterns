@@ -16,11 +16,9 @@ public class ConsoleDriver {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out, true);
 
-        /*
         OrderClient orderClient = new OrderClient(orderService, in, out);
         Thread clientThread = new Thread(orderClient);
         clientThread.start();
-        */
     }
 
 }

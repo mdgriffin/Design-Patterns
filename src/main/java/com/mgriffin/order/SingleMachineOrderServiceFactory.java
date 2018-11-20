@@ -11,7 +11,7 @@ public class SingleMachineOrderServiceFactory implements OrderServiceFactory {
 
     @Override
     public OrderService createOrderService() {
-        return new OrderServiceImpl(Arrays.asList(new CoffeeMachineImpl()));
+        return new OrderServiceImpl(Arrays.asList(new CoffeeMachineImpl("Machine 1", "Canteen")));
     }
 
 }

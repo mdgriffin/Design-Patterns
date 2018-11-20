@@ -22,13 +22,7 @@ and then be notified when the coffee is ready for collection from one of the cof
         - DiscountFactory implemented by `TimeBasedDiscount` gets the current discount depending on the time of day.
     - [ ] **Adapter**: 
         - The adapting of the events from coffee machine to order service and then on to the clients
-    - [ ] **Template Method**
-        - Ideas
-            - Coffee Making algorithm, although it would be very close to the example in the book
-            - Receipt printer
-            - The order that the order is taken
-                - Get coffee type first
-                - Then size...
+    - [x] **Template Method**: Receipt printer prints the details of the order.
 - Other Patterns
     - [x] **Facade**: The Order Service is a facade into the coffee machines
     - [x] **Builder**: Builder pattern used by the state machine and by CoffeeOrder

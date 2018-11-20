@@ -14,8 +14,8 @@ public class MultiMachineOrderServiceFactory implements OrderServiceFactory {
     public OrderService createOrderService() {
         List<CoffeeMachine> coffeeMachines = new ArrayList<>();
 
-        for (int i = 0; i < NUM_MACHINES; i++) {
-            coffeeMachines.add(new CoffeeMachineImpl());
+        for (int i = 1; i <= NUM_MACHINES; i++) {
+            coffeeMachines.add(new CoffeeMachineImpl("Machine " + i, "Canteen"));
         }
 
         return new OrderServiceImpl(coffeeMachines);

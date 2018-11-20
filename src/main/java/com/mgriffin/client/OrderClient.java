@@ -55,22 +55,22 @@ public class OrderClient implements Runnable {
             orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override
                 public void coffeeAdded() {
-                    out.println(lineSeperator +"Coffee Added");
+                    out.println(lineSeperator +"Adding Coffee to Order");
                 }
 
                 @Override
                 public void milkAdded() {
-                    out.println("Milk Added");
+                    out.println("Milk Added to Order");
                 }
 
                 @Override
                 public void condimentsAdded() {
-                    out.println("Condiments Added");
+                    out.println("Condiments Added to Order");
                 }
 
                 @Override
-                public void orderCompleted() {
-                    out.println("Order Completed");
+                public void orderCompleted(String machineName, String machineLocation) {
+                    out.println("Order Completed" + lineSeperator + "Please collect order from " + machineName + " in the " + machineLocation + lineSeperator + "Goodbye!");
                     onProcessCompleted();
                 }
 

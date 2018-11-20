@@ -8,13 +8,19 @@ import java.util.List;
 
 public class CoffeeMachineImpl implements CoffeeMachine {
 
-    CoffeeOrder coffeeOrder;
-
-    List<MachineObserver> observers = new ArrayList();
+    private CoffeeOrder coffeeOrder;
+    private List<MachineObserver> observers = new ArrayList();
+    private String name;
+    private  String location;
 
     private Thread machineThread;
 
-    public CoffeeMachineImpl() {}
+    private CoffeeMachineImpl () {}
+
+    public CoffeeMachineImpl(String name, String location) {
+        this.name = name;
+        this.location = location;
+    }
 
     @Override
     public boolean available () {
@@ -33,6 +39,16 @@ public class CoffeeMachineImpl implements CoffeeMachine {
             machineThread = new Thread(this);
             machineThread.start();
         }
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getLocation() {
+        return location;
     }
 
     private void addCoffee () {
