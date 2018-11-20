@@ -15,6 +15,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static com.mgriffin.utility.StringUtils.join;
+import static com.mgriffin.utility.StringUtils.lineBreak;
+
 public class OrderClient implements Runnable {
     private OrderService orderService;
     private BufferedReader in;
@@ -55,7 +58,7 @@ public class OrderClient implements Runnable {
             orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override
                 public void coffeeAdded() {
-                    out.println(lineSeperator +"Adding Coffee to Order");
+                    out.println(lineSeperator +"Coffee Added to Order");
                 }
 
                 @Override
@@ -87,10 +90,12 @@ public class OrderClient implements Runnable {
     }
 
     private static String getWelcomeMessage () {
-        return "Welcome To" + lineSeperator +
-                " __   __   ___  ___  ___  ___     ___      __   __   ___  __   __     " + lineSeperator +
-                "/  ` /  \\ |__  |__  |__  |__     |__  \\_/ |__) |__) |__  /__` /__`    " + lineSeperator +
-                "\\__, \\__/ |    |    |___ |___    |___ / \\ |    |  \\ |___ .__/ .__/    " + lineSeperator+
-                "                                                                      " + lineSeperator;
+        return join(
+        "Welcome To",
+            lineBreak(" __   __   ___  ___  ___  ___     ___      __   __   ___  __   __     "),
+            lineBreak("/  ` /  \\ |__  |__  |__  |__     |__  \\_/ |__) |__) |__  /__` /__`    "),
+            lineBreak("\\__, \\__/ |    |    |___ |___    |___ / \\ |    |  \\ |___ .__/ .__/    "),
+            lineBreak("                                                                      ")
+        );
     }
 }
