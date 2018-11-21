@@ -1,5 +1,10 @@
 @startuml
 
+Note "Creator" as N1
+Note "ConcreteCreators" as N2
+Note "Product" as N3
+Note "ConcreteProduct" as N4
+
 interface OrderServiceFactory {
     createOrderService():OrderService
 }
@@ -17,5 +22,12 @@ OrderServiceImpl ..|> OrderService
 
 MultiMachineOrderServiceFactory --> OrderServiceImpl
 SingleMachineOrderServiceFactory --> OrderServiceImpl
+
+OrderServiceFactory -- N1
+
+MultiMachineOrderServiceFactory -- N2
+SingleMachineOrderServiceFactory -- N2
+OrderService -- N3
+OrderServiceImpl -- N4
 
 @enduml
