@@ -3,6 +3,7 @@ package com.mgriffin.client;
 import com.mgriffin.billing.ReceiptPrinter;
 import com.mgriffin.billing.CoffeeExpressReceiptPrinter;
 import com.mgriffin.command.Command;
+import com.mgriffin.command.DoNothingCommand;
 import com.mgriffin.console.CustomerMessageOfTheDay;
 import com.mgriffin.console.MessageOfTheDay;
 import com.mgriffin.console.SimpleMessageOfTheDay;
@@ -25,16 +26,18 @@ public class OrderClient implements Runnable {
     private Command processCompletedCommand;
     protected static String lineSeperator = System.getProperty("line.separator");
 
+
+    private OrderClient () {}
+
     public OrderClient (OrderService orderService, BufferedReader in, PrintWriter out) {
         this.orderService = orderService;
         this.in = in;
         this.out = out;
+        this.processCompletedCommand = new DoNothingCommand();
     }
 
     public void onProcessCompleted () {
-        if (this.processCompletedCommand != null) {
             processCompletedCommand.execute();
-        }
     }
 
     public void registerCompletedCommand (Command processCompletedCommand) {
