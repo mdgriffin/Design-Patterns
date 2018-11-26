@@ -10,6 +10,10 @@ public class StringUtils {
         return lineSeperator + text;
     }
 
+    public static String lineBreakAfter (String text) {
+        return text + lineSeperator;
+    }
+
     public static String join(String ...arr) {
         return String.join("", arr);
     }

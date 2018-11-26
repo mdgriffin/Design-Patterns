@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 
 import static com.mgriffin.utility.StringUtils.join;
 import static com.mgriffin.utility.StringUtils.lineBreak;
+import static com.mgriffin.utility.StringUtils.lineBreakAfter;
 
 public class OrderClient implements Runnable {
     private OrderService orderService;
@@ -93,12 +94,12 @@ public class OrderClient implements Runnable {
     }
 
     private static String getWelcomeMessage () {
-        return join(
+        return lineBreakAfter(join(
         "Welcome To",
             lineBreak(" __   __   ___  ___  ___  ___     ___      __   __   ___  __   __     "),
             lineBreak("/  ` /  \\ |__  |__  |__  |__     |__  \\_/ |__) |__) |__  /__` /__`    "),
             lineBreak("\\__, \\__/ |    |    |___ |___    |___ / \\ |    |  \\ |___ .__/ .__/    "),
             lineBreak("                                                                      ")
-        );
+        ));
     }
 }
