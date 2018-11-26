@@ -30,9 +30,7 @@ class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable
 
         Optional<CoffeeMachine> availableMachine = getAvailableCoffeeMachine();
 
-        if (availableMachine.isPresent()) {
-            availableMachine.get().start(order);
-        }
+        availableMachine.ifPresent(machine -> machine.start(order));
     }
 
     private Optional<CoffeeMachine> getAvailableCoffeeMachine () {
