@@ -2,9 +2,9 @@ package com.mgriffin.billing;
 
 import com.mgriffin.order.CoffeeOrder;
 
-public abstract class ReceiptPrinter {
+import static com.mgriffin.utility.StringUtils.lineBreak;
 
-    protected static String lineSeperator = System.getProperty("line.separator");
+public abstract class ReceiptPrinter {
 
     public String print () {
         StringBuilder sb = new StringBuilder();
@@ -17,7 +17,7 @@ public abstract class ReceiptPrinter {
     }
 
     protected String printHeader () {
-        return lineSeperator + "=== Your Order ===";
+        return lineBreak("=== Your Order ===");
     }
 
     abstract String printOrder();
@@ -25,6 +25,6 @@ public abstract class ReceiptPrinter {
     abstract String printPrice();
 
     protected String printFooter() {
-        return lineSeperator + lineSeperator + "Thanks For Your Custom";
+        return lineBreak(lineBreak("Thanks For Your Custom"));
     }
 }

@@ -1,7 +1,5 @@
 package com.mgriffin.utility;
 
-import java.util.Arrays;
-
 public class StringUtils {
 
     private static String lineSeperator = System.getProperty("line.separator");
