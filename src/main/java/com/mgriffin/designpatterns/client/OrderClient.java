@@ -25,8 +25,6 @@ public class OrderClient implements Runnable {
     private BufferedReader in;
     private PrintWriter out;
     private Command processCompletedCommand;
-    protected static String lineSeperator = System.getProperty("line.separator");
-
 
     private OrderClient () {}
 
@@ -62,7 +60,7 @@ public class OrderClient implements Runnable {
             orderService.addObserver(coffeeOrder, new OrderObserver() {
                 @Override
                 public void coffeeAdded() {
-                    out.println(lineSeperator +"Coffee Added to Order");
+                    out.println(lineBreak("Coffee Added to Order"));
                 }
 
                 @Override
@@ -77,7 +75,7 @@ public class OrderClient implements Runnable {
 
                 @Override
                 public void orderCompleted(String machineName, String machineLocation) {
-                    out.println("Order Completed" + lineSeperator + "Please collect order from " + machineName + " in the " + machineLocation + lineSeperator + "Goodbye!");
+                    out.println("Order Completed" + lineBreak( "Please collect order from ") + machineName + " in the " + machineLocation + lineBreak("Goodbye!"));
                     onProcessCompleted();
                 }
 
