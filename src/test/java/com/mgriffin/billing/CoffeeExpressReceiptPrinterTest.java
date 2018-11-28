@@ -1,7 +1,6 @@
 package com.mgriffin.billing;
 
 import com.mgriffin.order.*;
-import com.mgriffin.utility.StringUtils;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
