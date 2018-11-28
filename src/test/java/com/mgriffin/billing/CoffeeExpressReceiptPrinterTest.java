@@ -12,7 +12,7 @@ import static com.mgriffin.utility.StringUtils.join;
 public class CoffeeExpressReceiptPrinterTest {
 
     @Test
-    public void receiptPrinter_canPrint () {
+    public void whenPrintingReceipt_itemsPrintedInCorrectOrder () {
         CoffeeOrder coffeeOrder = new CoffeeOrder.CoffeeOrderBuilder()
             .setDiscount((amount) -> { return amount * 1d;})
             .setCustomer(new Customer("John Doe"))
@@ -20,17 +20,16 @@ public class CoffeeExpressReceiptPrinterTest {
             .setSize(CoffeeSize.LARGE)
             .addCondiment(CoffeeCondiment.CREAM)
             .order();
-
         ReceiptPrinter receiptPrinter = new CoffeeExpressReceiptPrinter(coffeeOrder);
+        String expectedResult = lineBreak(join(
+                lineBreakAfter("=== Your Order ==="),
+                lineBreakAfter("LARGE LATTE with Cream,"),
+                lineBreakAfter("Price: 3.7"),
+                lineBreakAfter(""),
+                "Thanks For Your Custom"));
 
-        String res = receiptPrinter.print();
-
-        assertEquals(res, lineBreak(join(
-        lineBreakAfter("=== Your Order ==="),
-            lineBreakAfter("LARGE LATTE with Cream,"),
-            lineBreakAfter("Price: 3.7"),
-            lineBreakAfter(""),
-            "Thanks For Your Custom")));
+        String actualResult = receiptPrinter.print();
+        assertEquals(expectedResult, actualResult);
     }
 
 }
