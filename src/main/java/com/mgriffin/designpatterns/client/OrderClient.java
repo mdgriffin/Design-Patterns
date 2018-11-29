@@ -4,12 +4,9 @@ import com.mgriffin.designpatterns.billing.ReceiptPrinter;
 import com.mgriffin.designpatterns.billing.CoffeeExpressReceiptPrinter;
 import com.mgriffin.designpatterns.command.Command;
 import com.mgriffin.designpatterns.command.DoNothingCommand;
-import com.mgriffin.designpatterns.console.CustomerMessageOfTheDay;
-import com.mgriffin.designpatterns.console.MessageOfTheDay;
-import com.mgriffin.designpatterns.console.SimpleMessageOfTheDay;
+import com.mgriffin.designpatterns.console.*;
 import com.mgriffin.designpatterns.order.CoffeeOrder;
 import com.mgriffin.designpatterns.order.OrderService;
-import com.mgriffin.designpatterns.console.ConsoleOrderBuilder;
 import com.mgriffin.designpatterns.order.OrderObserver;
 
 import java.io.BufferedReader;
@@ -48,11 +45,11 @@ public class OrderClient implements Runnable {
         try {
             out.print(getWelcomeMessage());
 
+            WordsOfWisdom messageOfTheDay = new MessageOfTheDay(new QuotedWordsOfWisdom(new RandomWordsOfWisdom()));
+            out.println(messageOfTheDay.getMessage());
+
             ConsoleOrderBuilder orderBuilder = new ConsoleOrderBuilder(in, out);
             CoffeeOrder coffeeOrder = orderBuilder.getCoffeeOrder();
-
-            MessageOfTheDay messageOfTheDay = new CustomerMessageOfTheDay(new SimpleMessageOfTheDay(), coffeeOrder.getCustomer());
-            out.println(messageOfTheDay.getMessage());
 
             ReceiptPrinter receiptPrinter = new CoffeeExpressReceiptPrinter(coffeeOrder);
             out.println(receiptPrinter.print());

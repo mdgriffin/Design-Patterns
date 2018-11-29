@@ -62,8 +62,8 @@ public class OrderClientTest {
 
         assertEquals(1.95d, capturedOrder.getPrice(), 0.01d);
         assertEquals(OrderStates.WAITING,capturedOrder.getOrderState());
-        assertEquals("Please enter customer name: ", values.get(0));
-        assertEquals("Please select Coffee Type from the following options: ", values.get(1));
+        assertEquals("Please enter customer name: ", values.get(1));
+        assertEquals("Please select Coffee Type from the following options: ", values.get(2));
         assertEquals(StringUtils.lineBreak("Coffee Added to Order"), values.get(22));
     }
 
