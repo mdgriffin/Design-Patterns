@@ -20,8 +20,7 @@ and then be notified when the coffee is ready for collection from one of the cof
     - [x] **Factory Method**: 
         - Order Service cannot be instantiated outside order package, access is though the `SingleMachineOrderService` and `MultiMachineOrderService` classes which implement the OrderFactory interface. In this way it matches the intent **Define an interface for creating an object, but let subclasses decide which class to instantiate.**
         - DiscountFactory implemented by `TimeBasedDiscount` gets the current discount depending on the time of day.
-    - [ ] **Adapter**: 
-        - The adapting of the events from coffee machine to order service and then on to the clients
+    - [ ] **Adapter**: Create an older type of coffee machine that needs and adapter to work
     - [x] **Template Method**: Receipt printer prints the details of the order.
 - Other Patterns
     - [x] **Facade**: The Order Service is a facade into the coffee machines
@@ -31,9 +30,7 @@ and then be notified when the coffee is ready for collection from one of the cof
 ## ToDo
 
 - Combine OrderClient and Client Connection
-- [ ] Use an adapter to get rid of the problem of line separators 
 - [ ] Create overall class diagram
-- [ ] Could use a decorator to generate new lines `newline(newline("message here"))`
 - [x] Create Diagram for each pattern
 - [x] Implement sockets to allow multiple clients to connect to the application
 - Occasional discount are applied to the purchase price, for instance there is a 20% discount run during August
