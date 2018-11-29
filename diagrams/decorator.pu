@@ -1,20 +1,32 @@
 @startuml
 note "Component" as N1
 note "ConcreteComponent" as N2
-note "Decorated with Customer" as N3
+note "Decorators" as N3
 
-interface MessageOfTheDay {
+interface WordsOfWisdom {
     String getMessage()
 }
 
-class SimpleMessageOfTheDay
+class RandomWordsOfWisdom {
+    +getMessage():String
+}
 
-class CustomerMessageOfTheDay
+class QuotedWordsOfWisdom {
+    WordsOfWisdom wordsOfWisdom
+    +getMessage():String
+}
 
-SimpleMessageOfTheDay ..|> MessageOfTheDay
-CustomerMessageOfTheDay ..|> MessageOfTheDay
+class MessageOfTheDay {
+    WordsOfWisdom wordsOfWisdom
+    +getMessage():String
+}
 
-N1 .. MessageOfTheDay
-N2 .. SimpleMessageOfTheDay
-N3 .. CustomerMessageOfTheDay
+RandomWordsOfWisdom ..|> WordsOfWisdom
+QuotedWordsOfWisdom ..|> WordsOfWisdom
+MessageOfTheDay ..|> WordsOfWisdom
+
+N1 .. WordsOfWisdom
+N2 .. RandomWordsOfWisdom
+N3 .. QuotedWordsOfWisdom
+N3 .. MessageOfTheDay
 @enduml
