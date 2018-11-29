@@ -35,7 +35,7 @@ public class OrderClient implements Runnable {
         this.processCompletedCommand = new DoNothingCommand();
     }
 
-    public void onProcessCompleted () {
+    private void onProcessCompleted () {
             processCompletedCommand.execute();
     }
 
