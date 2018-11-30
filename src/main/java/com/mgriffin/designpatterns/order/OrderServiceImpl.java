@@ -98,7 +98,7 @@ class OrderServiceImpl implements OrderService, MachineObserver, OrderObservable
     @Override
     public void removeObserver(CoffeeOrder order, OrderObserver observer) {
         if (observers.get(order) != null) {
-            observers.get(order).removeIf(listOrder -> listOrder.equals(order));
+            observers.get(order).removeIf(listObserver -> listObserver.equals(observer));
         }
     }
 
