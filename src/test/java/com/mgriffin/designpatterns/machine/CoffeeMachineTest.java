@@ -8,6 +8,10 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class CoffeeMachineTest {
 
@@ -50,6 +54,22 @@ public class CoffeeMachineTest {
 
         assertEquals(OrderStates.WAITING, coffeeOrder.getOrderState());
         coffeeMachine.start(coffeeOrder);
+    }
+
+    @Test
+    public void observersRegisteredWithCoffeeMachine_invoked () {
+        CoffeeOrder coffeeOrder = new CoffeeOrder.CoffeeOrderBuilder()
+                .setCustomer(new Customer("John Doe"))
+                .setType(CoffeeType.LATTE)
+                .setSize(CoffeeSize.LARGE)
+                .addCondiment(CoffeeCondiment.CREAM)
+                .order();
+        MachineObserver observer = mock(MachineObserver.class);
+
+        coffeeMachine.addObserver(observer);
+        coffeeMachine.start(coffeeOrder);
+
+        verify(observer, times(1)).coffeeAdded(any(CoffeeMachine.class), any(CoffeeOrder.class));
     }
 
 }
