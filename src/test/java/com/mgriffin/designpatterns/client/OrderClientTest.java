@@ -42,7 +42,6 @@ public class OrderClientTest {
         coffeeOrderArgumentCaptor = ArgumentCaptor.forClass(CoffeeOrder.class);
     }
 
-
     @Test
     public void orderClient_printsCorrectValues () throws IOException {
         when(in.readLine()).thenAnswer(inputReaderAnswer);
